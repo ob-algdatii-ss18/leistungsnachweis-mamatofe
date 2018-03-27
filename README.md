@@ -9,6 +9,7 @@ To build and test the project, execute the following commands:
 ```sh
 mkdir build
 cd build
+cmake ..
 cmake --build .
 ctest .
 ```
