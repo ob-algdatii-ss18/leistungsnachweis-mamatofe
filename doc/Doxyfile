@@ -2,7 +2,7 @@ PROJECT_NAME           = "Sudoku-Solver"
 
 PROJECT_NUMBER         =
 
-INPUT                  = ../
+INPUT                  = ../app ../lib
 
 RECURSIVE              = YES
 

@@ -11,6 +11,9 @@ Welcome to Sudoku-Solver's documentation!
    :caption: Contents:
 
 
+.. doxygenindex::
+   :project: sudoku
+
 
 Indices and tables
 ==================

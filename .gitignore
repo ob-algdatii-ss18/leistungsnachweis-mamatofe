@@ -2,3 +2,4 @@
 build/
 cmake-build-debug/
 doc/_build/
+doc/xml/
