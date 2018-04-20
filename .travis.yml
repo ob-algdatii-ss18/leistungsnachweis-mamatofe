@@ -29,7 +29,7 @@ script:
   - cd ..
 
 after_success:
-  - coveralls --exclude build/CMakeFiles/ --gcov "llvm-cov gcov" --gcov-options '\-lp'  -r ..
+  - coveralls --exclude build/CMakeFiles/ --gcov "llvm-cov gcov" --gcov-options '\-lp'
 
 deploy:
   provider: pages
