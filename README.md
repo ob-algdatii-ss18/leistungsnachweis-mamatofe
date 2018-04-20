@@ -16,3 +16,14 @@ ctest .
 ```
 
 If you only want to run the application, you will find the binary under `build/app/sudoku-solver`.
+
+## Documentation
+
+Doxygen, Sphinx and breathe need to be installed to generate the documentation.
+You have to run these commands: 
+
+```sh
+cd doc
+doxygen
+make html
+``` 
