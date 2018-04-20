@@ -3,7 +3,7 @@
 #include "suso.h"
 
 int main () {
-    std::cout << "Hello from app!" << std::endl;
-    foo();
+    Sudoku sudoku;
+    std::cout << sudoku << std::endl;
     return 0;
 }
