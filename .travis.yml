@@ -21,7 +21,7 @@ before_script:
   - cd ..
 
 script:
-  - cppcheck --enable=warning,style,performance,portability,unusedFunction --verbose -I lib/include app/ lib/
+  - cppcheck --error-exitcode=1 --enable=warning,style,performance,portability,unusedFunction --verbose -I lib/include app/ lib/
   - cd build
   - cmake --build .
   - ctest .
