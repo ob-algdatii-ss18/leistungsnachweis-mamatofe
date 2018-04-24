@@ -16,4 +16,5 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fprofile-arcs -ftest-coverage")
 add_subdirectory(lib)
 add_subdirectory(app)
 
+include(CTest)
 enable_testing()
