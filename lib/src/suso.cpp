@@ -53,9 +53,7 @@ std::vector<int> Sudoku::validNumbers(position pos) {
     for (std::set<int>::iterator it=posNumbers.begin(); it!=posNumbers.end(); ++it){
         res.push_back(*it);
     }
-
-    for (std::vector<int>::iterator iter = res.begin(); iter != res.end(); ++iter)
-        std::cout << *iter << ' ';
+    
 
     return res;
 }
