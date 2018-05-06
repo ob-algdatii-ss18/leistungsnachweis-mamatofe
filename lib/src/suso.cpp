@@ -53,7 +53,24 @@ std::vector<int> Sudoku::validNumbers(position pos) {
     for (std::set<int>::iterator it=posNumbers.begin(); it!=posNumbers.end(); ++it){
         res.push_back(*it);
     }
-    
-
     return res;
+}
+
+bool Sudoku::solveNakedSingles(){
+    bool changed = false;
+    struct position pos;
+
+    for(int k = 0; k<9; k++){
+        for(int l = 0; l<9; l++){
+            pos.x = k;
+            pos.y = l;
+            std::vector<int> res = validNumbers(pos);
+
+            if(res.size() == 1 && field[k][l] == 0) {
+                field[k][l] = res[0];
+                changed = true;
+            }
+        }
+    }
+    return changed;
 }
