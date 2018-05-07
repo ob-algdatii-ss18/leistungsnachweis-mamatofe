@@ -34,4 +34,5 @@ TEST(susoTest, solveNakedSingleTest) {
     EXPECT_EQ(changed, true);
 }
 
+}
 

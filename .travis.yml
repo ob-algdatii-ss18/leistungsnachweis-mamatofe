@@ -6,11 +6,12 @@ addons:
     packages:
       - doxygen
       - graphviz
-      - python-sphinx
       - valgrind
+      - cppcheck
 
 before_install:
   - pip install --user cpp-coveralls
+  - pip install --user 'sphinx<1.7.0'
   - pip install --user breathe
 
 before_script:
@@ -20,6 +21,7 @@ before_script:
   - cd ..
 
 script:
+  - cppcheck --error-exitcode=1 --enable=warning,style,performance,portability,unusedFunction --verbose -I lib/include app/ lib/
   - cd build
   - cmake --build .
   - ctest .

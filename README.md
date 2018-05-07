@@ -1,4 +1,4 @@
-# Sudoku-Solver
+# [Sudoku-Solver](https://ob-algdatii-ss18.github.io/leistungsnachweis-mamatofe/)
 
 [![Build Status](https://travis-ci.org/ob-algdatii-ss18/leistungsnachweis-mamatofe.svg?branch=master)](https://travis-ci.org/ob-algdatii-ss18/leistungsnachweis-mamatofe)
 [![Coverage Status](https://coveralls.io/repos/github/ob-algdatii-ss18/leistungsnachweis-mamatofe/badge.svg?branch=master)](https://coveralls.io/github/ob-algdatii-ss18/leistungsnachweis-mamatofe?branch=master)
@@ -27,3 +27,5 @@ cd doc
 doxygen
 make html
 ``` 
+
+The documentation can also be found online under [https://ob-algdatii-ss18.github.io/leistungsnachweis-mamatofe/](https://ob-algdatii-ss18.github.io/leistungsnachweis-mamatofe/).
