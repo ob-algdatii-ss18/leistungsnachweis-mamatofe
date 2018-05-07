@@ -6,12 +6,12 @@ addons:
     packages:
       - doxygen
       - graphviz
-      - python-sphinx
       - valgrind
       - cppcheck
 
 before_install:
   - pip install --user cpp-coveralls
+  - pip install --user 'sphinx<1.7.0'
   - pip install --user breathe
 
 before_script:

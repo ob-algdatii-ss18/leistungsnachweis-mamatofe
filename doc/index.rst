@@ -1,23 +1,28 @@
-.. Sudoku-Solver documentation master file, created by
-   sphinx-quickstart on Fri Apr 20 13:56:46 2018.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
+.. _index:
 
-Welcome to Sudoku-Solver's documentation!
-=========================================
+Sudoku-Solver
+=============
+
+Build instructions
+------------------
+
+To build and test the project, execute the following commands:
+
+.. code-block:: sh
+
+    mkdir build
+    cd build
+    cmake ..
+    cmake --build .
+    ctest .
+
+If you only want to run the application, you will find the binary under ``build/app/sudoku-solver``.
+More information about the build can be found under :ref:`build`.
 
 .. toctree::
    :maxdepth: 2
-   :caption: Contents:
+   :hidden:
 
-
-.. doxygenindex::
-   :project: sudoku
-
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
+   build
+   usage
+   documentation
