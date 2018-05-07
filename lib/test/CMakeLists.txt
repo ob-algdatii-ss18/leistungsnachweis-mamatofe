@@ -1,6 +1,9 @@
 enable_testing()
 add_executable(sudoku_test sudokutest.cpp)
 
+target_include_directories(sudoku_test PRIVATE ${PROJECT_SOURCE_DIR}/lib/include)
+target_link_libraries(sudoku_test suso)
+
 add_dependencies(sudoku_test gtest)
 target_include_directories(sudoku_test PRIVATE ${source_dir}/googletest/include
         ${source_dir}/googlemock/include)
