@@ -23,5 +23,14 @@ TEST(susoTest, validNumbersTest) {
     EXPECT_EQ(sudoku.validNumbers(pos)[2], 8);
 }
 
-
+TEST(susoTest, solveNakedSingleTest) {
+    Sudoku sudoku;
+    bool changed;
+    changed = sudoku.solveNakedSingles();
+    EXPECT_EQ(changed, true);
+    changed = sudoku.solveNakedSingles();
+    EXPECT_EQ(changed, true);
+    changed = sudoku.solveNakedSingles();
+    EXPECT_EQ(changed, true);
+}
 
