@@ -1,5 +1,3 @@
-//
-// Created by Markus on 24.04.2018.
 #include "gtest/gtest.h"
 #include "suso.h"
 

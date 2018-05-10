@@ -2,14 +2,14 @@
 
 #include "suso.h"
 
-int main () {
+int main() {
     Sudoku sudoku;
     std::cout << sudoku << std::endl;
 
 
     bool changed = true;
 
-    while(changed){
+    while (changed) {
         changed = sudoku.solveNakedSingles();
     }
 
