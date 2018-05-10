@@ -22,6 +22,7 @@ To do this you need to follow these steps.
       cmake ..
 
    to generate all files needed for the build.
+   When you want to collect coverage information you need to add ``-DENABLE_COVERAGE=ON`` to the command.
 3. Execute
 
    .. code-block:: sh
