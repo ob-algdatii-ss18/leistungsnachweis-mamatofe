@@ -1,5 +1,3 @@
-//
-// Created by Markus on 24.04.2018.
 #include "gtest/gtest.h"
 #include "suso.h"
 
@@ -10,13 +8,13 @@ TEST(susoTest, validNumbersTest) {
     pos.y = 4;
     EXPECT_EQ(sudoku.validNumbers(pos).size(), 1);
     EXPECT_EQ(sudoku.validNumbers(pos)[0], 5);
-    pos.x = 2;
-    pos.y = 0;
+    pos.x = 0;
+    pos.y = 2;
     EXPECT_EQ(sudoku.validNumbers(pos).size(), 2);
     EXPECT_EQ(sudoku.validNumbers(pos)[0], 1);
     EXPECT_EQ(sudoku.validNumbers(pos)[1], 2);
-    pos.x = 0;
-    pos.y = 8;
+    pos.x = 8;
+    pos.y = 0;
     EXPECT_EQ(sudoku.validNumbers(pos).size(), 3);
     EXPECT_EQ(sudoku.validNumbers(pos)[0], 2);
     EXPECT_EQ(sudoku.validNumbers(pos)[1], 4);

@@ -11,6 +11,22 @@ struct position {
 class Sudoku {
 private:
     std::array<std::array<int, 9>, 9> field;
+
+    /*!
+     * Returns if a given cell is not filled with a number.
+     * @param pos the position to check
+     * @return true if the cell is empty, false otherwise
+     */
+    bool isEmpty(position pos);
+
+    /*!
+     * Writes a number into the Sudoku field at a given position.
+     * No checks of the number are performed.
+     * @param pos where to insert the number
+     * @param num the number to insert
+     */
+    void insertNumber(position pos, int num);
+
 public:
     Sudoku() : field({{{5, 3, 0, 0, 7, 0, 0, 0, 0},
                               {6, 0, 0, 1, 9, 5, 0, 0, 0},
