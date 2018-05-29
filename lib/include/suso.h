@@ -43,6 +43,13 @@ private:
      */
     void insertNumber(position pos, int num);
 
+    /*!
+     * Returns if the sudoku has one or more empty cell to fill.
+     * @param pos reference to the position of the next empty cell
+     * @return true if at least one cell is empty
+     */
+    bool hasEmptyCell(position &pos);
+
 public:
     /*!
      * At the moment the constructor creates a Sudoku from a hardcoded array of
@@ -92,6 +99,12 @@ public:
      * empty cells show up as zero.
      */
     friend std::ostream &operator<<(std::ostream &stream, const Sudoku &sudoku);
+
+    /*!
+     * This function solves the sudoku recursively by using the backtracking algorithm.
+     * @return true if the sudoku is solved
+     */
+    bool solveBacktracking();
 };
 
 #endif // __SUSO_H__
