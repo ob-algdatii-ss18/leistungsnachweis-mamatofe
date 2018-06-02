@@ -18,7 +18,20 @@ struct position {
      * number of the row.
      */
     int y;
+    /*!
+     * Checks equality of two positions.
+     */
+    //bool operator==(const position& lhs, const position& rhs);
+    /*!
+     * Checks inequality of two positions.
+     */
+    //bool operator!=(const position& lhs, const position& rhs);
 };
+
+/*!
+ * A position.
+ */
+const struct position INVALID_POS = {-1, -1};
 
 /*!
  * A Sudoku represents the complete field of one Sudoku. It also has functions
@@ -48,15 +61,15 @@ public:
      * At the moment the constructor creates a Sudoku from a hardcoded array of
      * numbers. This will be fixed soon.
      */
-    Sudoku() : field({{{5, 3, 0, 0, 7, 0, 0, 0, 0},
-                              {6, 0, 0, 1, 9, 5, 0, 0, 0},
-                              {0, 9, 8, 0, 0, 0, 0, 6, 0},
-                              {8, 0, 0, 0, 6, 0, 0, 0, 3},
-                              {4, 0, 0, 8, 0, 3, 0, 0, 1},
-                              {7, 0, 0, 0, 2, 0, 0, 0, 6},
-                              {0, 6, 0, 0, 0, 0, 2, 8, 0},
-                              {0, 0, 0, 4, 1, 9, 0, 0, 5},
-                              {0, 0, 0, 0, 8, 0, 0, 7, 9}}}) {};
+    Sudoku() : field({{       {1, 8, 0, 0, 0, 0, 0, 0, 0},
+                              {0, 5, 3, 0, 0, 0, 0, 0, 0},
+                              {9, 0, 2, 0, 0, 0, 0, 0, 0},
+                              {0, 0, 7, 0, 0, 0, 0, 0, 0},
+                              {0, 0, 0, 0, 0, 0, 0, 0, 0},
+                              {0, 0, 0, 0, 0, 0, 0, 0, 0},
+                              {0, 7, 0, 0, 0, 0, 0, 0, 0},
+                              {0, 0, 0, 0, 0, 0, 0, 0, 0},
+                              {0, 0, 0, 0, 0, 0, 0, 0, 0}}}) {};
 
     /*!
      * This function returns all numbers that could be placed in the cell at the
@@ -87,11 +100,12 @@ public:
     bool solveHiddenSingles();
 
     /*!
-     * This function cn be used to print out the current state of the Sudoku.
+     * This function can be used to print out the current state of the Sudoku.
      * Cells that are already filled with a number are printed as the number,
      * empty cells show up as zero.
      */
     friend std::ostream &operator<<(std::ostream &stream, const Sudoku &sudoku);
+
 };
 
 #endif // __SUSO_H__
