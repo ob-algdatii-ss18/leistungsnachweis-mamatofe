@@ -141,8 +141,8 @@ bool Sudoku::solveHiddenSingles(){
     //Block
     for (int xBlock = 0; xBlock < 9; xBlock +=3){
         for (int yBlock = 0; yBlock < 9; yBlock+=3){
+            std::map<int,position> block;
             for (int x = 0; x < 3; x++){
-                std::map<int,position> block;
                 for (int y = 0; y <3; y++){
                     pos.x = xBlock + x;
                     pos.y = yBlock + y;
@@ -157,12 +157,12 @@ bool Sudoku::solveHiddenSingles(){
                         }
                     }
                 }
-                for (auto i = block.begin(); i != block.end(); i++)
-                {
-                    if(i->second != INVALID_POS){
-                        insertNumber(i-> second, i->first);
-                        changed = true;
-                    }
+            }
+            for (auto i = block.begin(); i != block.end(); i++)
+            {
+                if(i->second != INVALID_POS){
+                    insertNumber(i-> second, i->first);
+                    changed = true;
                 }
             }
         }
