@@ -79,3 +79,33 @@ bool Sudoku::solveNakedSingles() {
     }
     return changed;
 }
+
+bool Sudoku::hasEmptyCell(position &pos) {
+    for (pos.x = 0; pos.x < 9; pos.x++) {
+        for (pos.y = 0; pos.y < 9; pos.y++) {
+            if (isEmpty(pos)) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
+bool Sudoku::solveBacktracking() {
+    position pos;
+    //Überprüfen, ob es noch eine freie Zelle gibt. Falls ja mit der nächsten weiter machen.
+    if (!hasEmptyCell(pos)) {
+        return true;
+    }
+    //Alle möglichen Zahlen für die frei Zelle durchprobieren
+    std::vector<int> res = validNumbers(pos);
+    for (std::vector<int>::size_type i = 0; i < res.size(); i++) {
+        insertNumber(pos, res[i]);
+        //Mit nächster Zelle weitermachen
+        if (solveBacktracking()) {
+            return true;
+        }
+        insertNumber(pos, 0); //Zelle zurücksetzen
+    }
+    return false;
+}
