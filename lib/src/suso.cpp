@@ -1,8 +1,17 @@
 #include <iostream>
 #include <vector>
 #include <set>
+#include <map>
 
 #include "suso.h"
+
+bool operator==(const position& lhs, const position& rhs) {
+    return (lhs.x == rhs.x && lhs.y == rhs.y);
+}
+
+bool operator!=(const position& lhs, const position& rhs) {
+    return !(lhs == rhs);
+}
 
 std::ostream &operator<<(std::ostream &stream, Sudoku &sudoku) {
     position pos;
@@ -77,6 +86,88 @@ bool Sudoku::solveNakedSingles() {
             }
         }
     }
+    return changed;
+}
+
+bool Sudoku::solveHiddenSingles(){
+    bool changed = false;
+    struct position pos;
+    //Spalten
+    for (pos.x = 0; pos.x < 9; pos.x++) {
+        std::map<int,position> column;
+        for (pos.y = 0; pos.y < 9; pos.y++) {
+            if (isEmpty(pos)) {
+                std::vector<int> res = validNumbers(pos);
+                for (int i = 0; i < res.size(); i++) {
+                    if(column.count(res[i]) == 0) {
+                        column[res[i]]= pos;
+                    } else {
+                        column[res[i]] = INVALID_POS;
+                    }
+                }
+            }
+        }
+        for (auto i = column.begin(); i != column.end(); i++)
+        {
+            if(i->second != INVALID_POS){
+                insertNumber(i-> second, i->first);
+                changed = true;
+            }
+        }
+    }
+    //Zeilen
+    for (pos.y = 0; pos.y < 9; pos.y++) {
+        std::map<int,position> row;
+        for (pos.x = 0; pos.x < 9; pos.x++) {
+            if (isEmpty(pos)) {
+                std::vector<int> res = validNumbers(pos);
+                for (int i = 0; i < res.size(); i++) {
+                    if(row.count(res[i]) == 0) {
+                        row[res[i]]= pos;
+                    } else {
+                        row[res[i]] = INVALID_POS;
+                    }
+                }
+            }
+        }
+        for (auto i = row.begin(); i != row.end(); i++)
+        {
+            if(i->second != INVALID_POS){
+                insertNumber(i-> second, i->first);
+                changed = true;
+            }
+        }
+    }
+    //Block
+    for (int xBlock = 0; xBlock < 9; xBlock +=3){
+        for (int yBlock = 0; yBlock < 9; yBlock+=3){
+            std::map<int,position> block;
+            for (int x = 0; x < 3; x++){
+                for (int y = 0; y <3; y++){
+                    pos.x = xBlock + x;
+                    pos.y = yBlock + y;
+                    if (isEmpty(pos)) {
+                        std::vector<int> res = validNumbers(pos);
+                        for (int i = 0; i < res.size(); i++) {
+                            if(block.count(res[i]) == 0) {
+                                block[res[i]]= pos;
+                            } else {
+                                block[res[i]] = INVALID_POS;
+                            }
+                        }
+                    }
+                }
+            }
+            for (auto i = block.begin(); i != block.end(); i++)
+            {
+                if(i->second != INVALID_POS){
+                    insertNumber(i-> second, i->first);
+                    changed = true;
+                }
+            }
+        }
+    }
+
     return changed;
 }
 
