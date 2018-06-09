@@ -104,8 +104,7 @@ public:
      * Cells that are already filled with a number are printed as the number,
      * empty cells show up as zero.
      */
-    friend std::ostream &operator<<(std::ostream &stream, const Sudoku &sudoku);
-
+    friend std::ostream &operator<<(std::ostream &stream, Sudoku &sudoku);
 };
 
 #endif // __SUSO_H__

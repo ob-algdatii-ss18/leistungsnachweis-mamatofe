@@ -13,12 +13,25 @@ bool operator!=(const position& lhs, const position& rhs) {
     return !(lhs == rhs);
 }
 
-std::ostream &operator<<(std::ostream &stream, const Sudoku &sudoku) {
-    for (const auto &line : sudoku.field) {
-        for (const auto &cell : line) {
-            stream << cell << "  ";
+std::ostream &operator<<(std::ostream &stream, Sudoku &sudoku) {
+    position pos;
+    for (pos.y = 0; pos.y < 9; pos.y++) {
+        for (pos.x = 0; pos.x < 9; pos.x++) {
+            if (sudoku.isEmpty(pos)) {
+                stream << " ";
+            } else {
+                stream << sudoku.field[pos.y][pos.x];
+            }
+            if (pos.x % 3 == 2 && pos.x != 8) {
+                stream << " | ";
+            } else {
+                stream << "  ";
+            }
         }
         stream << std::endl;
+        if (pos.y % 3 == 2 && pos.y != 8) {
+            stream << "--------|---------|--------" << std::endl;
+        }
     }
     return stream;
 }
