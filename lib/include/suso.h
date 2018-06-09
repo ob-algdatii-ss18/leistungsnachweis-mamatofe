@@ -98,13 +98,14 @@ public:
      * Cells that are already filled with a number are printed as the number,
      * empty cells show up as zero.
      */
-    friend std::ostream &operator<<(std::ostream &stream, const Sudoku &sudoku);
-
+    friend std::ostream &operator<<(std::ostream &stream, Sudoku &sudoku);
+  
     /*!
      * This function solves the sudoku recursively by using the backtracking algorithm.
      * @return true if the sudoku is solved
      */
     bool solveBacktracking();
+
 };
 
 #endif // __SUSO_H__

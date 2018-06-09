@@ -10,7 +10,22 @@ ExternalProject_Add(gtest
     INSTALL_COMMAND ""
 )
 
-ExternalProject_Get_Property(gtest source_dir binary_dir)
+ExternalProject_Get_Property(gtest SOURCE_DIR BINARY_DIR)
+set(GTEST_SOURCE_DIR ${SOURCE_DIR})
+set(GTEST_BINARY_DIR ${BINARY_DIR})
+
+ExternalProject_Add(args
+    GIT_REPOSITORY https://github.com/Taywee/args.git
+    GIT_TAG 6.2.0
+    PREFIX ${CMAKE_CURRENT_BINARY_DIR}/args
+    CONFIGURE_COMMAND ""
+    BUILD_COMMAND ""
+    INSTALL_COMMAND ""
+)
+
+ExternalProject_Get_Property(args SOURCE_DIR BINARY_DIR)
+set(ARGS_SOURCE_DIR ${SOURCE_DIR})
+set(ARGS_BINARY_DIR ${BINARY_DIR})
 
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
