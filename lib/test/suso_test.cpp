@@ -35,13 +35,13 @@ TEST(susoTest, solveNakedSingleTest) {
 TEST(susoTest, updateSudokuTest) {
 Sudoku sudoku;
 bool success;
-succes = sudoku.updateSudoku("sampleFile.csv");
+success = sudoku.updateSudoku("/testdata/sampleFile.csv");
 EXPECT_EQ(success, true);
-succes = sudoku.updateSudoku("sampleBadFile1.csv");
+success = sudoku.updateSudoku("/testdata/sampleBadFile1.csv");
 EXPECT_EQ(success, false);
-succes = sudoku.updateSudoku("sampleBadFile2.csv");
+success = sudoku.updateSudoku("/testdata/sampleBadFile2.csv");
 EXPECT_EQ(success, false);
-succes = sudoku.updateSudoku("sampleBadFile3.csv");
+success = sudoku.updateSudoku("/testdata/sampleBadFile3.csv");
 EXPECT_EQ(success, false);
 }
 
