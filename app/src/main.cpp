@@ -46,6 +46,14 @@ int main(int argc, const char *argv[]) {
     }
 
     Sudoku sudoku;
+
+    if(sudoku.updateSudoku("C:\\Users\\Markus\\Documents\\GitHub\\leistungsnachweis-mamatofe\\testdata\\sampleFile.csv")){
+        std::cout << "success" << std::endl;
+    }
+    else{
+        std::cout << "failure" << std::endl;
+    }
+
     std::cout << sudoku << std::endl;
 
     bool changed = true;

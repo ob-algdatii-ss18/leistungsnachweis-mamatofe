@@ -87,6 +87,8 @@ public:
      */
     std::vector<int> validNumbers(position pos);
 
+    bool updateSudoku(std::string path);
+
     /*!
      * This function tries to fill cells by searching for naked singles. These
      * are cells where only one number is valid. The function iterates over the

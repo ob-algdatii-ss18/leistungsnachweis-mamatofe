@@ -32,3 +32,16 @@ TEST(susoTest, solveNakedSingleTest) {
     EXPECT_EQ(changed, true);
 }
 
+TEST(susoTest, updateSudokuTest) {
+Sudoku sudoku;
+bool success;
+succes = sudoku.updateSudoku("sampleFile.csv");
+EXPECT_EQ(success, true);
+succes = sudoku.updateSudoku("sampleBadFile1.csv");
+EXPECT_EQ(success, false);
+succes = sudoku.updateSudoku("sampleBadFile2.csv");
+EXPECT_EQ(success, false);
+succes = sudoku.updateSudoku("sampleBadFile3.csv");
+EXPECT_EQ(success, false);
+}
+
