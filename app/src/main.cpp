@@ -47,7 +47,7 @@ int main(int argc, const char *argv[]) {
 
     Sudoku sudoku;
 
-    if(sudoku.updateSudoku("C:\\Users\\Markus\\Documents\\GitHub\\leistungsnachweis-mamatofe\\testdata\\sampleFile.csv")){
+    if(sudoku.updateSudoku("./../../testdata/sampleFile.csv")){
         std::cout << "success" << std::endl;
     }
     else{
