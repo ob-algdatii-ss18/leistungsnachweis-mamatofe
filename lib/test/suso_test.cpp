@@ -1,7 +1,6 @@
 #include "gtest/gtest.h"
 #include "suso.h"
-#include "direct.h"
-#include <iostream>
+
 
 TEST(susoTest, validNumbersTest) {
     Sudoku sudoku;
@@ -38,11 +37,6 @@ TEST(susoTest, updateSudokuTest) {
 Sudoku sudoku;
 bool success;
 
-char buff[FILENAME_MAX];
-getcwd( buff, FILENAME_MAX );
-std::string current_working_dir(buff);
-
-std::cout <<"Test" << current_working_dir << std::endl;
 success = sudoku.updateSudoku("./../../../testdata/sampleFile.csv");
 EXPECT_EQ(success, true);
 success = sudoku.updateSudoku("./../../../testdata/sampleBadFile1.csv");
