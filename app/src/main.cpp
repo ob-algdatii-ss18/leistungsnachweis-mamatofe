@@ -51,7 +51,12 @@ int main(int argc, const char *argv[]) {
     bool changed = true;
 
     while (changed) {
-        changed = sudoku.solveNakedSingles();
+        try{
+            changed = sudoku.solveNakedSingles();
+        } catch (const char* msg){
+            std::cerr << msg << std::endl;
+        }
+
     }
 
     std::cout << sudoku << std::endl;

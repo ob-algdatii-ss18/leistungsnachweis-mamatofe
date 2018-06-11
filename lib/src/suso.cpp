@@ -79,7 +79,10 @@ bool Sudoku::solveNakedSingles() {
         for (pos.y = 0; pos.y < 9; pos.y++) {
             if (isEmpty(pos)) {
                 std::vector<int> res = validNumbers(pos);
-                if (res.size() == 1) {
+                if (res.empty()){
+                    throw "Can not solve Sudoku!";
+                }
+                else if (res.size() == 1) {
                     insertNumber(pos, res[0]);
                     changed = true;
                 }
@@ -98,6 +101,9 @@ bool Sudoku::solveHiddenSingles(){
         for (pos.y = 0; pos.y < 9; pos.y++) {
             if (isEmpty(pos)) {
                 std::vector<int> res = validNumbers(pos);
+                if (res.empty()){
+                    throw "Can not solve Sudoku!";
+                }
                 for (int i = 0; i < res.size(); i++) {
                     if(column.count(res[i]) == 0) {
                         column[res[i]]= pos;
@@ -121,6 +127,9 @@ bool Sudoku::solveHiddenSingles(){
         for (pos.x = 0; pos.x < 9; pos.x++) {
             if (isEmpty(pos)) {
                 std::vector<int> res = validNumbers(pos);
+                if (res.empty()){
+                    throw "Can not solve Sudoku!";
+                }
                 for (int i = 0; i < res.size(); i++) {
                     if(row.count(res[i]) == 0) {
                         row[res[i]]= pos;
@@ -148,6 +157,9 @@ bool Sudoku::solveHiddenSingles(){
                     pos.y = yBlock + y;
                     if (isEmpty(pos)) {
                         std::vector<int> res = validNumbers(pos);
+                        if (res.empty()){
+                            throw "Can not solve Sudoku!";
+                        }
                         for (int i = 0; i < res.size(); i++) {
                             if(block.count(res[i]) == 0) {
                                 block[res[i]]= pos;
@@ -190,6 +202,9 @@ bool Sudoku::solveBacktracking() {
     }
     //Alle möglichen Zahlen für die frei Zelle durchprobieren
     std::vector<int> res = validNumbers(pos);
+    if (res.empty()){
+        throw "Can not solve Sudoku!";
+    }
     for (std::vector<int>::size_type i = 0; i < res.size(); i++) {
         insertNumber(pos, res[i]);
         //Mit nächster Zelle weitermachen
