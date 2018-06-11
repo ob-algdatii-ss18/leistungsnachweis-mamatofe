@@ -222,7 +222,8 @@ bool Sudoku::updateSudoku(std::string path) {
             }
             else{
                 std::cout << "line error" << column_number << line_number << std::endl;
-                return false;
+                res = false;
+                break;
             }
 
         }
@@ -233,14 +234,16 @@ bool Sudoku::updateSudoku(std::string path) {
             }
             else{
                 std::cout << "Too many symbols per line" << std::endl;
-                return false;
+                res = false;
+                break;
             };
         }
         else if(isdigit(read_character)){
             int number = read_character - '0';
 
             if(number < 0 || number > 9 || line_number > 8 || column_number > 8 || !write){
-                return false;
+                res = false;
+                break;
             }
             else {
                 struct position pos;
@@ -252,7 +255,8 @@ bool Sudoku::updateSudoku(std::string path) {
             }
         }
         else{
-            return false;
+            res = false;
+            break;
         }
     }
 
