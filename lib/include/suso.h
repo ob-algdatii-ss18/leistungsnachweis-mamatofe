@@ -112,8 +112,8 @@ public:
      * Cells that are already filled with a number are printed as the number,
      * empty cells show up as zero.
      */
-    friend std::ostream &operator<<(std::ostream &stream, const Sudoku &sudoku);
-
+    friend std::ostream &operator<<(std::ostream &stream, Sudoku &sudoku);
+  
     /*!
      * This function can be used to compare two sudoku fields.
      * @param lhs the sudoku to compare with the other sudoku
@@ -127,6 +127,7 @@ public:
      * @return true if the sudoku is solved
      */
     bool solveBacktracking();
+
 };
 
 #endif // __SUSO_H__
