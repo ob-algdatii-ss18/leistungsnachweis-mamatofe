@@ -25,7 +25,7 @@ script:
   - cd build
   - cmake --build .
   - ctest .
-  - ctest -T memcheck .
+ # - ctest -T memcheck .
   - cd ..
   - cd doc
   - doxygen
