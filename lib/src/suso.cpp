@@ -16,6 +16,15 @@ bool operator!=(const position& lhs, const position& rhs) {
     return !(lhs == rhs);
 }
 
+std::ostream &operator<<(std::ostream &stream, const Metrics &metrics) {
+    stream << "Numbers given by definition: " << metrics.given << std::endl;
+    stream << "Numbers found by naked Singles: " << metrics.solvedNaked << std::endl;
+    stream << "Numbers found by hidden Singles: " << metrics.solvedHidden << std::endl;
+    stream << "Numbers found by Backtracking: " << metrics.solvedBacktracking << std::endl;
+    stream << "Time used: " << metrics.duration.count() << "ms" << std::endl;
+    return stream;
+}
+
 std::ostream &operator<<(std::ostream &stream, Sudoku &sudoku) {
     position pos;
     for (pos.y = 0; pos.y < 9; pos.y++) {
@@ -48,6 +57,10 @@ bool operator==(const Sudoku &lhs, const Sudoku &rhs) {
         }
     }
     return true;
+}
+
+Metrics Sudoku::getSolvingMetrics() {
+    return metrics;
 }
 
 bool Sudoku::isEmpty(position pos) {
@@ -98,6 +111,7 @@ bool Sudoku::solveNakedSingles() throw(std::string){
                 }
                 else if (res.size() == 1) {
                     insertNumber(pos, res[0]);
+                    metrics.solvedNaked++;
                     changed = true;
                 }
             }
@@ -131,6 +145,7 @@ bool Sudoku::solveHiddenSingles() throw(std::string){
         {
             if(i->second != INVALID_POS){
                 insertNumber(i-> second, i->first);
+                metrics.solvedHidden++;
                 changed = true;
             }
         }
@@ -157,6 +172,7 @@ bool Sudoku::solveHiddenSingles() throw(std::string){
         {
             if(i->second != INVALID_POS){
                 insertNumber(i-> second, i->first);
+                metrics.solvedHidden++;
                 changed = true;
             }
         }
@@ -188,6 +204,7 @@ bool Sudoku::solveHiddenSingles() throw(std::string){
             {
                 if(i->second != INVALID_POS){
                     insertNumber(i-> second, i->first);
+                    metrics.solvedHidden++;
                     changed = true;
                 }
             }
@@ -197,7 +214,7 @@ bool Sudoku::solveHiddenSingles() throw(std::string){
     return changed;
 }
 
-bool Sudoku::hasEmptyCell(position &pos) {
+bool Sudoku::getNextEmptyCell(position &pos) {
     for (pos.x = 0; pos.x < 9; pos.x++) {
         for (pos.y = 0; pos.y < 9; pos.y++) {
             if (isEmpty(pos)) {
@@ -211,7 +228,7 @@ bool Sudoku::hasEmptyCell(position &pos) {
 bool Sudoku::solveBacktracking(){
     position pos;
     //Überprüfen, ob es noch eine freie Zelle gibt. Falls ja mit der nächsten weiter machen.
-    if (!hasEmptyCell(pos)) {
+    if (!getNextEmptyCell(pos)) {
         return true;
     }
     //Alle möglichen Zahlen für die freie Zelle durchprobieren
@@ -220,10 +237,11 @@ bool Sudoku::solveBacktracking(){
         insertNumber(pos, res[i]);
         //Mit nächster Zelle weitermachen
         if (solveBacktracking()) {
+            metrics.solvedBacktracking++;
             return true;
         }
-        insertNumber(pos, 0); //Zelle zurücksetzen
     }
+    insertNumber(pos, 0); //Zelle zurücksetzen
     return false;
 }
 
@@ -339,6 +357,7 @@ bool Sudoku::updateSudoku(std::string path) {
 }
 
 void Sudoku::solve(Modes algorithm) throw(std::string){
+    auto start = std::chrono::high_resolution_clock::now();
     if(algorithm == Modes::DEFAULT){
         bool changed;
         //Naked Singles
@@ -372,4 +391,6 @@ void Sudoku::solve(Modes algorithm) throw(std::string){
             throw std::string("Can not solve Sudoku, in Backtracking");
         }
     }
+    auto end = std::chrono::high_resolution_clock::now();
+    metrics.duration = end - start;
 }

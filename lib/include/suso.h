@@ -3,6 +3,7 @@
 
 #include <array>
 #include <vector>
+#include <chrono>
 
 enum Modes {
     DEFAULT,
@@ -40,6 +41,16 @@ struct position {
  */
 const struct position INVALID_POS = {-1, -1};
 
+struct Metrics {
+    int given;
+    int solvedNaked;
+    int solvedHidden;
+    int solvedBacktracking;
+    std::chrono::duration<double, std::milli> duration;
+};
+
+std::ostream &operator<<(std::ostream &stream, const Metrics &metrics);
+
 /*!
  * A Sudoku represents the complete field of one Sudoku. It also has functions
  * to solve the Sudoku using different algorithms.
@@ -47,6 +58,7 @@ const struct position INVALID_POS = {-1, -1};
 class Sudoku {
 private:
     std::array<std::array<int, 9>, 9> field;
+    Metrics metrics{};
 
     /*!
      * Returns if a given cell is not filled with a number.
@@ -68,7 +80,7 @@ private:
      * @param pos reference to the position of the next empty cell
      * @return true if at least one cell is empty
      */
-    bool hasEmptyCell(position &pos);
+    bool getNextEmptyCell(position &pos);
 
 public:
     /*!
@@ -84,6 +96,8 @@ public:
                               {0, 6, 0, 0, 0, 0, 2, 8, 0},
                               {0, 0, 0, 4, 1, 9, 0, 0, 5},
                               {0, 0, 0, 0, 8, 0, 0, 7, 9}}}) {};
+
+    Metrics getSolvingMetrics();
 
     /*!
      * A Constructor to create a sudoku with a given field.
