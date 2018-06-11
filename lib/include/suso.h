@@ -79,6 +79,14 @@ public:
                               {0, 0, 0, 0, 8, 0, 0, 7, 9}}}) {};
 
     /*!
+     * A Constructor to create a sudoku with a given field.
+     * @param field the field for the new sudoku
+     */
+    Sudoku(std::array<std::array<int, 9>, 9> field) {
+        this->field = field;
+    }
+
+    /*!
      * This function returns all numbers that could be placed in the cell at the
      * given position so they do not conflict with the numbers already placed in
      * the field.
@@ -118,6 +126,12 @@ public:
      * @return true if the sudoku is solved
      */
     bool solveBacktracking();
+
+    /*!
+     * This function checks if the sudoku is solvable.
+     * If the sudoku is not solvable, the function will throw an exception.
+     */
+    void checkSolvability() const throw(std::string);
 
 };
 

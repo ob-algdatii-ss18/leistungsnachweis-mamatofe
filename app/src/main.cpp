@@ -47,13 +47,18 @@ int main(int argc, const char *argv[]) {
 
     Sudoku sudoku;
     std::cout << sudoku << std::endl;
+    try {
+        sudoku.checkSolvability();
+        bool changed = true;
 
-    bool changed = true;
-
-    while (changed) {
-        changed = sudoku.solveNakedSingles();
+        while (changed) {
+            changed = sudoku.solveNakedSingles();
+        }
+        std::cout << sudoku << std::endl;
+    }
+    catch(std::string e) {
+        std::cout << e << std::endl;
     }
 
-    std::cout << sudoku << std::endl;
     return 0;
 }
