@@ -3,10 +3,6 @@
 
 #include "suso.h"
 
-enum Modes {
-    DEFAULT,
-    BACKTRACKING,
-};
 
 int main(int argc, const char *argv[]) {
 
@@ -48,11 +44,7 @@ int main(int argc, const char *argv[]) {
     Sudoku sudoku;
     std::cout << sudoku << std::endl;
 
-    bool changed = true;
-
-    while (changed) {
-        changed = sudoku.solveNakedSingles();
-    }
+    sudoku.solve(LAST_RESORT_BACKTRACKING);
 
     std::cout << sudoku << std::endl;
     return 0;
