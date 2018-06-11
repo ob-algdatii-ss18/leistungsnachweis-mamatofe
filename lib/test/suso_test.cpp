@@ -32,3 +32,19 @@ TEST(susoTest, solveNakedSingleTest) {
     EXPECT_EQ(changed, true);
 }
 
+TEST(susoTest, updateSudokuTest) {
+Sudoku sudoku1;
+Sudoku sudoku2;
+Sudoku sudoku3;
+Sudoku sudoku4;
+
+sudoku1.updateSudoku("./../../../testdata/sampleBadFile4.csv");
+EXPECT_THROW("Can not solve Sudoku!", const char* msg);
+sudoku2.updateSudoku("./../../../testdata/sampleBadFile4.csv");
+EXPECT_THROW("Can not solve Sudoku!", const char* msg);
+sudoku3.updateSudoku("./../../../testdata/sampleBadFile4.csv");
+EXPECT_THROW("Can not solve Sudoku!", const char* msg);
+sudoku4.updateSudoku("./../../../testdata/sampleBadFile4.csv");
+EXPECT_THROW("Can not solve Sudoku!", const char* msg);
+}
+
