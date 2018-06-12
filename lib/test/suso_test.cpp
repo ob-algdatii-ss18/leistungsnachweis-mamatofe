@@ -79,7 +79,7 @@ TEST(susoTest, solveBacktracking) {
 }
 
 TEST(susoTest, solveHiddenSingle) {
-    Sudoku sudoku,solvedSudoku;
+    Sudoku sudoku, solvedSudoku;
     sudoku.loadFromFile("./../../../testdata/hiddenSingleBlock.csv");
     solvedSudoku.loadFromFile("./../../../testdata/SolHiddenSingleBlock.csv");
     EXPECT_NO_THROW(sudoku.solveHiddenSingles());

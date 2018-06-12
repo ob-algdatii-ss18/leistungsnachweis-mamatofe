@@ -19,9 +19,9 @@ int main(int argc, const char *argv[]) {
     parser.LongSeparator(" ");
     args::HelpFlag help(parser, "help", "Display this help", {'h', "help"});
     args::MapFlag<std::string, Mode> algo(parser, "algorithm",
-                                           "The algorithm that should be used to solve the Sudoku. "
-                                           "Possible values are: default, backtracking, lrb (last_resort_backtracking)",
-                                           {'a', "algo"}, map);
+                                          "The algorithm that should be used to solve the Sudoku. "
+                                          "Possible values are: default, backtracking, lrb (last_resort_backtracking)",
+                                          {'a', "algo"}, map);
     args::Positional<std::string> file(parser, "file", "The file containing the Sudoku to solve");
 
     try {
