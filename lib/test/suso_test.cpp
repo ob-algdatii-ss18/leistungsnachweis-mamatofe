@@ -1,6 +1,7 @@
 #include "gtest/gtest.h"
 #include "suso.h"
 
+
 TEST(susoTest, validNumbersTest) {
     Sudoku sudoku;
     struct position pos;
@@ -33,25 +34,39 @@ TEST(susoTest, solveNakedSingleTest) {
 }
 
 TEST(susoTest, checkSolvability) {
-    Sudoku sudoku = Sudoku({{       {5, 3, 3, 0, 7, 0, 0, 0, 0},
-                                     {6, 0, 0, 1, 9, 5, 0, 0, 0},
-                                     {0, 9, 8, 0, 0, 0, 0, 6, 0},
-                                     {8, 0, 0, 0, 6, 0, 0, 0, 3},
-                                     {4, 0, 0, 8, 0, 3, 0, 0, 1},
-                                     {7, 0, 0, 0, 2, 0, 0, 0, 6},
-                                     {0, 6, 0, 0, 0, 0, 2, 8, 0},
-                                     {0, 0, 0, 4, 1, 9, 0, 0, 5},
-                                     {0, 0, 0, 0, 8, 0, 0, 7, 9}}});
+    Sudoku sudoku = Sudoku({{{5, 3, 3, 0, 7, 0, 0, 0, 0},
+                                    {6, 0, 0, 1, 9, 5, 0, 0, 0},
+                                    {0, 9, 8, 0, 0, 0, 0, 6, 0},
+                                    {8, 0, 0, 0, 6, 0, 0, 0, 3},
+                                    {4, 0, 0, 8, 0, 3, 0, 0, 1},
+                                    {7, 0, 0, 0, 2, 0, 0, 0, 6},
+                                    {0, 6, 0, 0, 0, 0, 2, 8, 0},
+                                    {0, 0, 0, 4, 1, 9, 0, 0, 5},
+                                    {0, 0, 0, 0, 8, 0, 0, 7, 9}}});
     try {
         sudoku.checkSolvability();
         FAIL() << "Expected exception";
     }
-    catch(const std::string& e) {
+    catch (const std::string &e) {
         EXPECT_EQ(e, std::string("Der Wert 3 kommt mehrmals in der Zeile 0 vor."));
     }
-    catch(...) {
+    catch (...) {
         FAIL() << "Expected exception";
     }
+}
+
+TEST(susoTest, updateSudokuTest) {
+    Sudoku sudoku;
+    bool success;
+
+    success = sudoku.updateSudoku("./../../../testdata/sampleFile.csv");
+    EXPECT_EQ(success, true);
+    success = sudoku.updateSudoku("./../../../testdata/sampleBadFile1.csv");
+    EXPECT_EQ(success, false);
+    success = sudoku.updateSudoku("./../../../testdata/sampleBadFile2.csv");
+    EXPECT_EQ(success, false);
+    success = sudoku.updateSudoku("./../../../testdata/sampleBadFile3.csv");
+    EXPECT_EQ(success, false);
 }
 
 TEST(susoTest, solveBacktracking) {

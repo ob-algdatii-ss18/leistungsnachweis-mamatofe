@@ -3,7 +3,7 @@
 #include <set>
 #include <map>
 #include <algorithm>
-#include <string>
+#include <fstream>
 
 #include "suso.h"
 
@@ -111,7 +111,7 @@ bool Sudoku::solveHiddenSingles(){
         for (pos.y = 0; pos.y < 9; pos.y++) {
             if (isEmpty(pos)) {
                 std::vector<int> res = validNumbers(pos);
-                for (int i = 0; i < res.size(); i++) {
+                for (unsigned int i = 0; i < res.size(); i++) {
                     if(column.count(res[i]) == 0) {
                         column[res[i]]= pos;
                     } else {
@@ -134,7 +134,7 @@ bool Sudoku::solveHiddenSingles(){
         for (pos.x = 0; pos.x < 9; pos.x++) {
             if (isEmpty(pos)) {
                 std::vector<int> res = validNumbers(pos);
-                for (int i = 0; i < res.size(); i++) {
+                for (unsigned int i = 0; i < res.size(); i++) {
                     if(row.count(res[i]) == 0) {
                         row[res[i]]= pos;
                     } else {
@@ -161,7 +161,7 @@ bool Sudoku::solveHiddenSingles(){
                     pos.y = yBlock + y;
                     if (isEmpty(pos)) {
                         std::vector<int> res = validNumbers(pos);
-                        for (int i = 0; i < res.size(); i++) {
+                        for (unsigned int i = 0; i < res.size(); i++) {
                             if(block.count(res[i]) == 0) {
                                 block[res[i]]= pos;
                             } else {
@@ -222,10 +222,10 @@ void Sudoku::checkSolvability() const throw(std::string) {
             numbers.push_back(field[i][j]);
         }
         std::sort(numbers.begin(), numbers.end());
-        for (int k = 0; k < numbers.size()-1; k++) {
-            if (numbers[k] != 0 && numbers[k] == numbers[k+1]) {
+        for (int k = 0; k < numbers.size() - 1; k++) {
+            if (numbers[k] != 0 && numbers[k] == numbers[k + 1]) {
                 std::string exception = "Der Wert " + std::to_string(numbers[k]) +
-                        " kommt mehrmals in der Zeile " + std::to_string(i) + " vor.";
+                                        " kommt mehrmals in der Zeile " + std::to_string(i) + " vor.";
                 throw exception;
             }
         }
@@ -237,33 +237,92 @@ void Sudoku::checkSolvability() const throw(std::string) {
             numbers.push_back(field[j][i]);
         }
         std::sort(numbers.begin(), numbers.end());
-        for (int k = 0; k < numbers.size()-1; k++) {
-            if (numbers[k] != 0 && numbers[k] == numbers[k+1]) {
+        for (int k = 0; k < numbers.size() - 1; k++) {
+            if (numbers[k] != 0 && numbers[k] == numbers[k + 1]) {
                 std::basic_string<char> exception = "Der Wert " + std::to_string(numbers[k]) +
-                        " kommt mehrmals in der Spalte " + std::to_string(i) + " vor.";
+                                                    " kommt mehrmals in der Spalte " + std::to_string(i) + " vor.";
                 throw exception;
             }
         }
     }
     //Blöcke überprüfen
-    for (int i = 0; i < 3; i ++) {
+    for (int i = 0; i < 3; i++) {
         for (int j = 0; j < 3; j++) {
             std::vector<int> numbers;
             for (int k = 0; k < 3; k++) {
                 for (int l = 0; l < 3; l++) {
-                    numbers.push_back(field[i*3+k][j*3+l]);
+                    numbers.push_back(field[i * 3 + k][j * 3 + l]);
                 }
             }
             std::sort(numbers.begin(), numbers.end());
-            for (int m = 0; m < numbers.size()-1; m++) {
-                if (numbers[m] != 0 && numbers[m] == numbers[m+1]) {
+            for (int m = 0; m < numbers.size() - 1; m++) {
+                if (numbers[m] != 0 && numbers[m] == numbers[m + 1]) {
                     std::basic_string<char> exception = "Der Wert " + std::to_string(numbers[m]) +
-                            " kommt mehrmals im Block " + std::to_string(i) + ", " + std::to_string(j) + " vor.";
+                                                        " kommt mehrmals im Block " + std::to_string(i) + ", " +
+                                                        std::to_string(j) + " vor.";
                     throw exception;
                 }
             }
         }
     }
+}
+
+bool Sudoku::updateSudoku(std::string path) {
+    bool res = false;
+    std::ifstream fin;
+    fin.open(path, std::ios::in);
+
+    bool write = true;
+    char read_character;
+    int line_number = 0;
+    int column_number = 0;
+
+    while (!fin.eof()) {
+        fin.get(read_character);
+
+        if (read_character == '\n') {
+            if (column_number == 8 || (column_number == 0 && line_number > 8)) {
+                ++line_number;
+                column_number = 0;
+                write = true;
+            } else {
+                std::cout << "line error" << column_number << line_number << std::endl;
+                res = false;
+                break;
+            }
+
+        } else if (read_character == ',') {
+            if (column_number < 8) {
+                ++column_number;
+                write = true;
+            } else {
+                std::cout << "Too many symbols per line" << std::endl;
+                res = false;
+                break;
+            };
+        } else if (isdigit(read_character)) {
+            int number = read_character - '0';
+
+            if (number < 0 || number > 9 || line_number > 8 || column_number > 8 || !write) {
+                res = false;
+                break;
+            } else {
+                struct position pos;
+                pos.x = column_number;
+                pos.y = line_number;
+                insertNumber(pos, number);
+                write = false;
+                res = true;
+            }
+        } else {
+            res = false;
+            break;
+        }
+    }
+
+    fin.close();
+
+    return res;
 }
 
 bool Sudoku::solve(Modes algorithm){
@@ -290,7 +349,7 @@ bool Sudoku::solve(Modes algorithm){
         do {
             changed = solveNakedSingles();
             if (!changed){
-                solveHiddenSingles();
+                changed = solveHiddenSingles();
             }
         } while (changed);
         sudokuSolved = solveBacktracking();
