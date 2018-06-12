@@ -206,7 +206,7 @@ bool Sudoku::hasEmptyCell(position &pos) {
     return false;
 }
 
-bool Sudoku::solveBacktracking() throw(std::string){
+bool Sudoku::solveBacktracking(){
     position pos;
     //Überprüfen, ob es noch eine freie Zelle gibt. Falls ja mit der nächsten weiter machen.
     if (!hasEmptyCell(pos)) {
@@ -283,7 +283,7 @@ bool Sudoku::updateSudoku(std::string path) {
     return res;
 }
 
-bool Sudoku::solve(Modes algorithm) throw(std::string){
+void Sudoku::solve(Modes algorithm) throw(std::string){
     bool sudokuSolved = false;
     if(algorithm == Modes::DEFAULT){
         bool changed;
@@ -296,10 +296,14 @@ bool Sudoku::solve(Modes algorithm) throw(std::string){
             changed = solveHiddenSingles();
         } while (changed);
         //Backtracking
-        sudokuSolved = solveBacktracking();
+        if(!solveBacktracking()){
+            throw std::string("Can not solve Sudoku, in Backtracking");
+        }
     }
     else if(algorithm == Modes::BACKTRACKING){
-        sudokuSolved = solveBacktracking();
+        if(!solveBacktracking()){
+            throw std::string("Can not solve Sudoku, in Backtracking");
+        }
     }
     else if(algorithm == Modes::LAST_RESORT_BACKTRACKING){
         bool changed;
@@ -310,7 +314,8 @@ bool Sudoku::solve(Modes algorithm) throw(std::string){
                 solveHiddenSingles();
             }
         } while (changed);
-        sudokuSolved = solveBacktracking();
+        if(!solveBacktracking()){
+            throw std::string("Can not solve Sudoku, in Backtracking");
+        }
     }
-    return sudokuSolved;
 }

@@ -147,14 +147,14 @@ public:
      * This function solves the sudoku recursively by using the backtracking algorithm.
      * @return true if the sudoku is solved
      */
-    bool solveBacktracking() throw(std::string);
+    bool solveBacktracking();
 
     /*!
      * This function solves the sudoku with the given algorithms.
      * @param algorithm way to solve the sudoku
      * @return true if sudoku is solved
      */
-    bool solve(Modes algorithm) throw(std::string);
+    void solve(Modes algorithm) throw(std::string);
 
 };
 

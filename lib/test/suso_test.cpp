@@ -44,7 +44,7 @@ TEST(susoTest, exceptionHandlingTest) {
     sudoku2.updateSudoku("./../../../testdata/sampleBadFile4.csv");
     EXPECT_THROW(sudoku2.solveHiddenSingles(), std::string);
     sudoku3.updateSudoku("./../../../testdata/sampleBadFile4.csv");
-    //EXPECT_THROW(sudoku3.solveBacktracking(), std::string);
+    EXPECT_THROW(sudoku3.solve(Modes::BACKTRACKING), std::string);
 }
 
 TEST(susoTest, solveBacktracking) {
