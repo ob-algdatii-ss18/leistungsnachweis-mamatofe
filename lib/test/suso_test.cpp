@@ -76,3 +76,19 @@ TEST(susoTest, solveBacktracking) {
     solvedSudoku.updateSudoku("./../../../testdata/solvedSudoku.csv");
     EXPECT_EQ(sudoku == solvedSudoku, true);
 }
+
+TEST(susoTest, solveHiddenSingle) {
+    Sudoku sudoku,solvedSudoku;
+    sudoku.updateSudoku("./../../../testdata/hiddenSingleBlock.csv");
+    solvedSudoku.updateSudoku("./../../../testdata/SolHiddenSingleBlock.csv");
+    EXPECT_NO_THROW(sudoku.solveHiddenSingles());
+    EXPECT_EQ(sudoku == solvedSudoku, true);
+    sudoku.updateSudoku("./../../../testdata/hiddenSingleRow.csv");
+    solvedSudoku.updateSudoku("./../../../testdata/SolHiddenSingleRow.csv");
+    EXPECT_NO_THROW(sudoku.solveHiddenSingles());
+    EXPECT_EQ(sudoku == solvedSudoku, true);
+    sudoku.updateSudoku("./../../../testdata/hiddenSingleColumn.csv");
+    solvedSudoku.updateSudoku("./../../../testdata/SolHiddenSingleColumn.csv");
+    EXPECT_NO_THROW(sudoku.solveHiddenSingles());
+    EXPECT_EQ(sudoku == solvedSudoku, true);
+}
