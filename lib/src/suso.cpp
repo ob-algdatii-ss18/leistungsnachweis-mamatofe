@@ -17,10 +17,10 @@ bool operator!=(const position& lhs, const position& rhs) {
 }
 
 std::ostream &operator<<(std::ostream &stream, const Metrics &metrics) {
-    stream << "Numbers given by definition: " << metrics.given << std::endl;
-    stream << "Numbers found by naked Singles: " << metrics.solvedNaked << std::endl;
-    stream << "Numbers found by hidden Singles: " << metrics.solvedHidden << std::endl;
-    stream << "Numbers found by Backtracking: " << metrics.solvedBacktracking << std::endl;
+    stream << "Cells filled by definition: " << metrics.given << std::endl;
+    stream << "Numbers found by searching naked singles: " << metrics.solvedNaked << std::endl;
+    stream << "Numbers found by searching hidden Singles: " << metrics.solvedHidden << std::endl;
+    stream << "Numbers found by backtracking: " << metrics.solvedBacktracking << std::endl;
     stream << "Time used: " << metrics.duration.count() << "ms" << std::endl;
     return stream;
 }
@@ -28,6 +28,7 @@ std::ostream &operator<<(std::ostream &stream, const Metrics &metrics) {
 std::ostream &operator<<(std::ostream &stream, Sudoku &sudoku) {
     position pos;
     for (pos.y = 0; pos.y < 9; pos.y++) {
+        stream << " ";
         for (pos.x = 0; pos.x < 9; pos.x++) {
             if (sudoku.isEmpty(pos)) {
                 stream << " ";
@@ -42,7 +43,7 @@ std::ostream &operator<<(std::ostream &stream, Sudoku &sudoku) {
         }
         stream << std::endl;
         if (pos.y % 3 == 2 && pos.y != 8) {
-            stream << "--------|---------|--------" << std::endl;
+            stream << "---------|---------|---------" << std::endl;
         }
     }
     return stream;
@@ -107,7 +108,7 @@ bool Sudoku::solveNakedSingles() throw(std::string){
             if (isEmpty(pos)) {
                 std::vector<int> res = validNumbers(pos);
                 if (res.empty()){
-                    throw std::string("Can not solve Sudoku, there are no valid Numbers at:" + std::to_string(pos.x) + "," + std::to_string(pos.y));
+                    throw std::string("Can not solve Sudoku, there are no valid numbers at:" + std::to_string(pos.x) + "," + std::to_string(pos.y));
                 }
                 else if (res.size() == 1) {
                     insertNumber(pos, res[0]);
@@ -130,7 +131,7 @@ bool Sudoku::solveHiddenSingles() throw(std::string){
             if (isEmpty(pos)) {
                 std::vector<int> res = validNumbers(pos);
                 if (res.empty()){
-                    throw std::string("Can not solve Sudoku, there are no valid Numbers at:" + std::to_string(pos.x) + "," + std::to_string(pos.y));
+                    throw std::string("Can not solve Sudoku, there are no valid numbers at:" + std::to_string(pos.x) + "," + std::to_string(pos.y));
                 }
                 for (unsigned int i = 0; i < res.size(); i++) {
                     if(column.count(res[i]) == 0) {
@@ -157,7 +158,7 @@ bool Sudoku::solveHiddenSingles() throw(std::string){
             if (isEmpty(pos)) {
                 std::vector<int> res = validNumbers(pos);
                 if (res.empty()){
-                    throw std::string("Can not solve Sudoku, there are no valid Numbers at:" + std::to_string(pos.x) + "," + std::to_string(pos.y));
+                    throw std::string("Can not solve Sudoku, there are no valid numbers at:" + std::to_string(pos.x) + "," + std::to_string(pos.y));
                 }
                 for (unsigned int i = 0; i < res.size(); i++) {
                     if(row.count(res[i]) == 0) {
@@ -188,7 +189,7 @@ bool Sudoku::solveHiddenSingles() throw(std::string){
                     if (isEmpty(pos)) {
                         std::vector<int> res = validNumbers(pos);
                         if (res.empty()){
-                            throw std::string("Can not solve Sudoku, there are no valid Numbers at:" + std::to_string(pos.x) + "," + std::to_string(pos.y));
+                            throw std::string("Can not solve Sudoku, there are no valid numbers at:" + std::to_string(pos.x) + "," + std::to_string(pos.y));
                         }
                         for (unsigned int i = 0; i < res.size(); i++) {
                             if(block.count(res[i]) == 0) {
@@ -255,9 +256,7 @@ void Sudoku::checkSolvability() const throw(std::string) {
         std::sort(numbers.begin(), numbers.end());
         for (int k = 0; k < numbers.size() - 1; k++) {
             if (numbers[k] != 0 && numbers[k] == numbers[k + 1]) {
-                std::string exception = "Der Wert " + std::to_string(numbers[k]) +
-                                        " kommt mehrmals in der Zeile " + std::to_string(i) + " vor.";
-                throw exception;
+                throw std::string("Row " + std::to_string(i) + " contains number '" + std::to_string(numbers[k]) +"' multiple times.");
             }
         }
     }
@@ -270,9 +269,7 @@ void Sudoku::checkSolvability() const throw(std::string) {
         std::sort(numbers.begin(), numbers.end());
         for (int k = 0; k < numbers.size() - 1; k++) {
             if (numbers[k] != 0 && numbers[k] == numbers[k + 1]) {
-                std::basic_string<char> exception = "Der Wert " + std::to_string(numbers[k]) +
-                                                    " kommt mehrmals in der Spalte " + std::to_string(i) + " vor.";
-                throw exception;
+                throw std::string("Column " + std::to_string(i) + " contains number '" + std::to_string(numbers[k]) +"' multiple times.");
             }
         }
     }
@@ -288,10 +285,7 @@ void Sudoku::checkSolvability() const throw(std::string) {
             std::sort(numbers.begin(), numbers.end());
             for (int m = 0; m < numbers.size() - 1; m++) {
                 if (numbers[m] != 0 && numbers[m] == numbers[m + 1]) {
-                    std::basic_string<char> exception = "Der Wert " + std::to_string(numbers[m]) +
-                                                        " kommt mehrmals im Block " + std::to_string(i) + ", " +
-                                                        std::to_string(j) + " vor.";
-                    throw exception;
+                    throw std::string("Block (" + std::to_string(i) + ", " + std::to_string(j) + ") contains number '" + std::to_string(numbers[m]) +"' multiple times.");
                 }
             }
         }
@@ -317,7 +311,7 @@ bool Sudoku::updateSudoku(std::string path) {
                 column_number = 0;
                 write = true;
             } else {
-                std::cout << "line error" << column_number << line_number << std::endl;
+                std::cout << "line error at " << line_number << "," << column_number << std::endl;
                 res = false;
                 break;
             }
@@ -327,7 +321,7 @@ bool Sudoku::updateSudoku(std::string path) {
                 ++column_number;
                 write = true;
             } else {
-                std::cout << "Too many symbols per line" << std::endl;
+                std::cout << "Too many symbols in line " << std::to_string(line_number) << std::endl;
                 res = false;
                 break;
             };
@@ -373,12 +367,12 @@ void Sudoku::solve(Modes algorithm) throw(std::string){
         } while (changed);
         //Backtracking
         if(!solveBacktracking()){
-            throw std::string("Can not solve Sudoku, in Backtracking");
+            throw std::string("Can not solve Sudoku, backtracking has failed.");
         }
     }
     else if(algorithm == Modes::BACKTRACKING){
         if(!solveBacktracking()){
-            throw std::string("Can not solve Sudoku, in Backtracking");
+            throw std::string("Can not solve Sudoku, backtracking has failed.");
         }
     }
     else if(algorithm == Modes::LAST_RESORT_BACKTRACKING){
@@ -391,7 +385,7 @@ void Sudoku::solve(Modes algorithm) throw(std::string){
             }
         } while (changed);
         if(!solveBacktracking()){
-            throw std::string("Can not solve Sudoku, in Backtracking");
+            throw std::string("Can not solve Sudoku, backtracking has failed.");
         }
     }
     auto end = std::chrono::high_resolution_clock::now();
