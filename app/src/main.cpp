@@ -48,7 +48,7 @@ int main(int argc, const char *argv[]) {
         sudoku.solve(LAST_RESORT_BACKTRACKING);
         std::cout << sudoku << std::endl;
     }
-    catch(std::string e) {
+    catch(const std::string& e) {
         std::cout << e << std::endl;
     }
 

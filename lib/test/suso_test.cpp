@@ -46,7 +46,7 @@ TEST(susoTest, checkSolvability) {
         sudoku.checkSolvability();
         FAIL() << "Expected exception";
     }
-    catch(std::string e) {
+    catch(const std::string& e) {
         EXPECT_EQ(e, std::string("Der Wert 3 kommt mehrmals in der Zeile 0 vor."));
     }
     catch(...) {
