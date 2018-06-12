@@ -26,6 +26,7 @@ TEST(susoTest, validNumbersTest) {
 TEST(susoTest, solveNakedSingleTest) {
     Sudoku sudoku;
     bool changed;
+    sudoku.updateSudoku("./../../../testdata/sudoku.csv");
     changed = sudoku.solveNakedSingles();
     EXPECT_EQ(changed, true);
     changed = sudoku.solveNakedSingles();
