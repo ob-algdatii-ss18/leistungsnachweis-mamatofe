@@ -43,16 +43,7 @@ TEST(susoTest, checkSolvability) {
                                     {0, 6, 0, 0, 0, 0, 2, 8, 0},
                                     {0, 0, 0, 4, 1, 9, 0, 0, 5},
                                     {0, 0, 0, 0, 8, 0, 0, 7, 9}}});
-    try {
-        sudoku.checkSolvability();
-        FAIL() << "Expected exception";
-    }
-    catch (const std::string &e) {
-        EXPECT_EQ(e, std::string("Der Wert 3 kommt mehrmals in der Zeile 0 vor."));
-    }
-    catch (...) {
-        FAIL() << "Expected exception";
-    }
+    EXPECT_THROW(sudoku.checkSolvability(), std::string);
 }
 
 TEST(susoTest, updateSudokuTest) {
