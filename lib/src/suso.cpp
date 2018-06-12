@@ -284,7 +284,6 @@ bool Sudoku::updateSudoku(std::string path) {
 }
 
 void Sudoku::solve(Modes algorithm) throw(std::string){
-    bool sudokuSolved = false;
     if(algorithm == Modes::DEFAULT){
         bool changed;
         //Naked Singles
