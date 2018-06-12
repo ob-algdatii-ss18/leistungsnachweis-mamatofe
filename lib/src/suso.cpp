@@ -342,6 +342,9 @@ bool Sudoku::updateSudoku(std::string path) {
                 pos.x = column_number;
                 pos.y = line_number;
                 insertNumber(pos, number);
+                if (number > 0) {
+                    metrics.given++;
+                }
                 write = false;
                 res = true;
             }
