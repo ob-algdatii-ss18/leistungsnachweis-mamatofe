@@ -9,9 +9,11 @@ int main(int argc, const char *argv[]) {
 
     std::unordered_map<std::string, Modes> map{
             {"default",                  Modes::DEFAULT},
+            {"naked",                    Modes::NAKED},
+            {"hidden",                   Modes::HIDDEN},
             {"backtracking",             Modes::BACKTRACKING},
-            {"lrb",                      Modes::LAST_RESORT_BACKTRACKING},
-            {"last_resort_backtracking", Modes::LAST_RESORT_BACKTRACKING}};
+            {"last_resort_backtracking", Modes::LAST_RESORT_BACKTRACKING},
+            {"lrb",                      Modes::LAST_RESORT_BACKTRACKING}};
 
     args::ArgumentParser parser("Solves the classical Sudoku game.");
     parser.LongSeparator(" ");

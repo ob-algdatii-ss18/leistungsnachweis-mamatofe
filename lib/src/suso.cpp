@@ -388,6 +388,26 @@ void Sudoku::solve(Modes algorithm) throw(std::string){
             throw std::string("Can not solve Sudoku, backtracking has failed.");
         }
     }
+    else if(algorithm == Modes::HIDDEN) {
+        bool changed;
+        do {
+            changed = solveHiddenSingles();
+        } while (changed);
+        struct position pos;
+        if(getNextEmptyCell(pos)) {
+            throw std::string("Can not solve Sudoku, hidden single has failed.");
+        }
+    }
+    else if(algorithm == Modes::NAKED) {
+        bool changed;
+        do {
+            changed = solveNakedSingles();
+        } while (changed);
+        struct position pos;
+        if(getNextEmptyCell(pos)) {
+            throw std::string("Can not solve Sudoku, naked single has failed.");
+        }
+    }
     auto end = std::chrono::high_resolution_clock::now();
     metrics.duration = end - start;
 }
