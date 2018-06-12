@@ -8,7 +8,8 @@ int main(int argc, const char *argv[]) {
 
     std::unordered_map<std::string, Modes> map{
             {"default",      Modes::DEFAULT},
-            {"backtracking", Modes::BACKTRACKING}};
+            {"backtracking", Modes::BACKTRACKING},
+            {"last_resort_backtracking", Modes::LAST_RESORT_BACKTRACKING}};
 
     args::ArgumentParser parser("Solves the classical Sudoku game.");
     args::HelpFlag help(parser, "help", "Display this help", {'h', "help"});
@@ -52,7 +53,7 @@ int main(int argc, const char *argv[]) {
 
     std::cout << sudoku << std::endl;
 
-    sudoku.solve(LAST_RESORT_BACKTRACKING);
+    sudoku.solve(args::get(algo));
 
     std::cout << sudoku << std::endl;
     return 0;

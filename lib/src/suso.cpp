@@ -109,7 +109,7 @@ bool Sudoku::solveHiddenSingles(){
         for (pos.y = 0; pos.y < 9; pos.y++) {
             if (isEmpty(pos)) {
                 std::vector<int> res = validNumbers(pos);
-                for (int i = 0; i < res.size(); i++) {
+                for (unsigned int i = 0; i < res.size(); i++) {
                     if(column.count(res[i]) == 0) {
                         column[res[i]]= pos;
                     } else {
@@ -132,7 +132,7 @@ bool Sudoku::solveHiddenSingles(){
         for (pos.x = 0; pos.x < 9; pos.x++) {
             if (isEmpty(pos)) {
                 std::vector<int> res = validNumbers(pos);
-                for (int i = 0; i < res.size(); i++) {
+                for (unsigned int i = 0; i < res.size(); i++) {
                     if(row.count(res[i]) == 0) {
                         row[res[i]]= pos;
                     } else {
@@ -159,7 +159,7 @@ bool Sudoku::solveHiddenSingles(){
                     pos.y = yBlock + y;
                     if (isEmpty(pos)) {
                         std::vector<int> res = validNumbers(pos);
-                        for (int i = 0; i < res.size(); i++) {
+                        for (unsigned int i = 0; i < res.size(); i++) {
                             if(block.count(res[i]) == 0) {
                                 block[res[i]]= pos;
                             } else {
@@ -294,7 +294,7 @@ bool Sudoku::solve(Modes algorithm){
         do {
             changed = solveNakedSingles();
             if (!changed){
-                solveHiddenSingles();
+                changed = solveHiddenSingles();
             }
         } while (changed);
         sudokuSolved = solveBacktracking();
