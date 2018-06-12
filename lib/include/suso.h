@@ -4,6 +4,13 @@
 #include <array>
 #include <vector>
 
+enum Modes {
+    DEFAULT,
+    BACKTRACKING,
+    LAST_RESORT_BACKTRACKING
+};
+
+
 /*!
  * A position contains the coordinates of one cell inside a Sudoku field.
  */
@@ -79,6 +86,14 @@ public:
                               {0, 0, 0, 0, 8, 0, 0, 7, 9}}}) {};
 
     /*!
+     * A Constructor to create a sudoku with a given field.
+     * @param field the field for the new sudoku
+     */
+    Sudoku(std::array<std::array<int, 9>, 9> field) {
+        this->field = field;
+    }
+
+    /*!
      * This function returns all numbers that could be placed in the cell at the
      * given position so they do not conflict with the numbers already placed in
      * the field.
@@ -88,13 +103,20 @@ public:
     std::vector<int> validNumbers(position pos);
 
     /*!
+     * This function reads a file into the sudoku field.
+     * @param path the path of the Sudoku file
+     * @return true if the Sudoku stored in the field is correct and could be read successfully
+     */
+    bool updateSudoku(std::string path);
+
+    /*!
      * This function tries to fill cells by searching for naked singles. These
      * are cells where only one number is valid. The function iterates over the
      * whole field and fills in the number when it finds a naked single.
      * @return true if the field has been changed (at least one number filled
      * into a cell), false otherwise
      */
-    bool solveNakedSingles();
+    bool solveNakedSingles() throw(std::string);
 
     /*!
      * This function tries to fill cells by searching for hidden singles. This
@@ -104,7 +126,7 @@ public:
      * @return true if the field has been changed (at least one number filled
      * into a cell), false otherwise
      */
-    bool solveHiddenSingles();
+    bool solveHiddenSingles()  throw(std::string);
 
     /*!
      * This function can be used to print out the current state of the Sudoku.
@@ -114,10 +136,25 @@ public:
     friend std::ostream &operator<<(std::ostream &stream, Sudoku &sudoku);
   
     /*!
+     * This function can be used to compare two sudoku fields.
+     * @param lhs the sudoku to compare with the other sudoku
+     * @param rhs other sudoku to compare with the sudoku
+     * @return true if the every cell is equal to the same cell in the other sudoku
+     */
+    friend bool operator==(const Sudoku &lhs, const Sudoku &rhs);
+
+    /*!
      * This function solves the sudoku recursively by using the backtracking algorithm.
      * @return true if the sudoku is solved
      */
-    bool solveBacktracking();
+    bool solveBacktracking() throw(std::string);
+
+    /*!
+     * This function solves the sudoku with the given algorithms.
+     * @param algorithm way to solve the sudoku
+     * @return true if sudoku is solved
+     */
+    bool solve(Modes algorithm) throw(std::string);
 
 };
 
