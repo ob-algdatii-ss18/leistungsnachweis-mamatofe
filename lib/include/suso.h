@@ -86,6 +86,14 @@ public:
                               {0, 0, 0, 0, 8, 0, 0, 7, 9}}}) {};
 
     /*!
+     * A Constructor to create a sudoku with a given field.
+     * @param field the field for the new sudoku
+     */
+    Sudoku(std::array<std::array<int, 9>, 9> field) {
+        this->field = field;
+    }
+
+    /*!
      * This function returns all numbers that could be placed in the cell at the
      * given position so they do not conflict with the numbers already placed in
      * the field.
@@ -120,6 +128,14 @@ public:
      */
     friend std::ostream &operator<<(std::ostream &stream, Sudoku &sudoku);
   
+    /*!
+     * This function can be used to compare two sudoku fields.
+     * @param lhs the sudoku to compare with the other sudoku
+     * @param rhs other sudoku to compare with the sudoku
+     * @return true if the every cell is equal to the same cell in the other sudoku
+     */
+    friend bool operator==(const Sudoku &lhs, const Sudoku &rhs);
+
     /*!
      * This function solves the sudoku recursively by using the backtracking algorithm.
      * @return true if the sudoku is solved
