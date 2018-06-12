@@ -129,6 +129,14 @@ public:
     friend std::ostream &operator<<(std::ostream &stream, Sudoku &sudoku);
   
     /*!
+     * This function can be used to compare two sudoku fields.
+     * @param lhs the sudoku to compare with the other sudoku
+     * @param rhs other sudoku to compare with the sudoku
+     * @return true if the every cell is equal to the same cell in the other sudoku
+     */
+    friend bool operator==(const Sudoku &lhs, const Sudoku &rhs);
+
+    /*!
      * This function solves the sudoku recursively by using the backtracking algorithm.
      * @return true if the sudoku is solved
      */

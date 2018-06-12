@@ -38,6 +38,17 @@ std::ostream &operator<<(std::ostream &stream, Sudoku &sudoku) {
     return stream;
 }
 
+bool operator==(const Sudoku &lhs, const Sudoku &rhs) {
+    for (int i = 0; i < 9; i++) {
+        for (int j = 0; j < 9; j++) {
+            if (lhs.field[i][j] != rhs.field[i][j]) {
+                return false;
+            }
+        }
+    }
+    return true;
+}
+
 bool Sudoku::isEmpty(position pos) {
     return field[pos.y][pos.x] == 0;
 }
@@ -190,7 +201,7 @@ bool Sudoku::solveBacktracking() {
     if (!hasEmptyCell(pos)) {
         return true;
     }
-    //Alle möglichen Zahlen für die frei Zelle durchprobieren
+    //Alle möglichen Zahlen für die freie Zelle durchprobieren
     std::vector<int> res = validNumbers(pos);
     for (std::vector<int>::size_type i = 0; i < res.size(); i++) {
         insertNumber(pos, res[i]);
