@@ -52,9 +52,14 @@ int main(int argc, const char *argv[]) {
     }
 
     std::cout << sudoku << std::endl;
+    try {
+        sudoku.checkSolvability();
+        sudoku.solve(args::get(algo));
+        std::cout << sudoku << std::endl;
+    }
+    catch(const std::string& e) {
+        std::cout << e << std::endl;
+    }
 
-    sudoku.solve(args::get(algo));
-
-    std::cout << sudoku << std::endl;
     return 0;
 }

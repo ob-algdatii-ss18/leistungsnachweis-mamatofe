@@ -2,7 +2,9 @@
 #include <vector>
 #include <set>
 #include <map>
+#include <algorithm>
 #include <fstream>
+
 #include "suso.h"
 
 bool operator==(const position& lhs, const position& rhs) {
@@ -210,6 +212,59 @@ bool Sudoku::solveBacktracking() {
         insertNumber(pos, 0); //Zelle zurücksetzen
     }
     return false;
+}
+
+void Sudoku::checkSolvability() const throw(std::string) {
+    //Zeilen überprüfen
+    for (int i = 0; i < 9; i++) {
+        std::vector<int> numbers;
+        for (int j = 0; j < 9; j++) {
+            numbers.push_back(field[i][j]);
+        }
+        std::sort(numbers.begin(), numbers.end());
+        for (int k = 0; k < numbers.size() - 1; k++) {
+            if (numbers[k] != 0 && numbers[k] == numbers[k + 1]) {
+                std::string exception = "Der Wert " + std::to_string(numbers[k]) +
+                                        " kommt mehrmals in der Zeile " + std::to_string(i) + " vor.";
+                throw exception;
+            }
+        }
+    }
+    //Spalten überprüfen
+    for (int i = 0; i < 9; i++) {
+        std::vector<int> numbers;
+        for (int j = 0; j < 9; j++) {
+            numbers.push_back(field[j][i]);
+        }
+        std::sort(numbers.begin(), numbers.end());
+        for (int k = 0; k < numbers.size() - 1; k++) {
+            if (numbers[k] != 0 && numbers[k] == numbers[k + 1]) {
+                std::basic_string<char> exception = "Der Wert " + std::to_string(numbers[k]) +
+                                                    " kommt mehrmals in der Spalte " + std::to_string(i) + " vor.";
+                throw exception;
+            }
+        }
+    }
+    //Blöcke überprüfen
+    for (int i = 0; i < 3; i++) {
+        for (int j = 0; j < 3; j++) {
+            std::vector<int> numbers;
+            for (int k = 0; k < 3; k++) {
+                for (int l = 0; l < 3; l++) {
+                    numbers.push_back(field[i * 3 + k][j * 3 + l]);
+                }
+            }
+            std::sort(numbers.begin(), numbers.end());
+            for (int m = 0; m < numbers.size() - 1; m++) {
+                if (numbers[m] != 0 && numbers[m] == numbers[m + 1]) {
+                    std::basic_string<char> exception = "Der Wert " + std::to_string(numbers[m]) +
+                                                        " kommt mehrmals im Block " + std::to_string(i) + ", " +
+                                                        std::to_string(j) + " vor.";
+                    throw exception;
+                }
+            }
+        }
+    }
 }
 
 bool Sudoku::updateSudoku(std::string path) {
