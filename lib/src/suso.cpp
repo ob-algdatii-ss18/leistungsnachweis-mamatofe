@@ -4,6 +4,7 @@
 #include <map>
 #include <algorithm>
 #include <fstream>
+#include <string>
 
 #include "suso.h"
 
@@ -84,7 +85,7 @@ std::vector<int> Sudoku::validNumbers(position pos) {
     return std::vector<int>(res.begin(), res.end());
 }
 
-bool Sudoku::solveNakedSingles() {
+bool Sudoku::solveNakedSingles() throw(std::string){
     bool changed = false;
     struct position pos;
 
@@ -92,7 +93,10 @@ bool Sudoku::solveNakedSingles() {
         for (pos.y = 0; pos.y < 9; pos.y++) {
             if (isEmpty(pos)) {
                 std::vector<int> res = validNumbers(pos);
-                if (res.size() == 1) {
+                if (res.empty()){
+                    throw std::string("Can not solve Sudoku, there are no valid Numbers at:" + std::to_string(pos.x) + "," + std::to_string(pos.y));
+                }
+                else if (res.size() == 1) {
                     insertNumber(pos, res[0]);
                     changed = true;
                 }
@@ -102,7 +106,7 @@ bool Sudoku::solveNakedSingles() {
     return changed;
 }
 
-bool Sudoku::solveHiddenSingles(){
+bool Sudoku::solveHiddenSingles() throw(std::string){
     bool changed = false;
     struct position pos;
     //Spalten
@@ -111,6 +115,9 @@ bool Sudoku::solveHiddenSingles(){
         for (pos.y = 0; pos.y < 9; pos.y++) {
             if (isEmpty(pos)) {
                 std::vector<int> res = validNumbers(pos);
+                if (res.empty()){
+                    throw std::string("Can not solve Sudoku, there are no valid Numbers at:" + std::to_string(pos.x) + "," + std::to_string(pos.y));
+                }
                 for (unsigned int i = 0; i < res.size(); i++) {
                     if(column.count(res[i]) == 0) {
                         column[res[i]]= pos;
@@ -134,6 +141,9 @@ bool Sudoku::solveHiddenSingles(){
         for (pos.x = 0; pos.x < 9; pos.x++) {
             if (isEmpty(pos)) {
                 std::vector<int> res = validNumbers(pos);
+                if (res.empty()){
+                    throw std::string("Can not solve Sudoku, there are no valid Numbers at:" + std::to_string(pos.x) + "," + std::to_string(pos.y));
+                }
                 for (unsigned int i = 0; i < res.size(); i++) {
                     if(row.count(res[i]) == 0) {
                         row[res[i]]= pos;
@@ -161,6 +171,9 @@ bool Sudoku::solveHiddenSingles(){
                     pos.y = yBlock + y;
                     if (isEmpty(pos)) {
                         std::vector<int> res = validNumbers(pos);
+                        if (res.empty()){
+                            throw std::string("Can not solve Sudoku, there are no valid Numbers at:" + std::to_string(pos.x) + "," + std::to_string(pos.y));
+                        }
                         for (unsigned int i = 0; i < res.size(); i++) {
                             if(block.count(res[i]) == 0) {
                                 block[res[i]]= pos;
@@ -195,7 +208,7 @@ bool Sudoku::hasEmptyCell(position &pos) {
     return false;
 }
 
-bool Sudoku::solveBacktracking() {
+bool Sudoku::solveBacktracking(){
     position pos;
     //Überprüfen, ob es noch eine freie Zelle gibt. Falls ja mit der nächsten weiter machen.
     if (!hasEmptyCell(pos)) {
@@ -325,8 +338,7 @@ bool Sudoku::updateSudoku(std::string path) {
     return res;
 }
 
-bool Sudoku::solve(Modes algorithm){
-    bool sudokuSolved = false;
+void Sudoku::solve(Modes algorithm) throw(std::string){
     if(algorithm == Modes::DEFAULT){
         bool changed;
         //Naked Singles
@@ -338,10 +350,14 @@ bool Sudoku::solve(Modes algorithm){
             changed = solveHiddenSingles();
         } while (changed);
         //Backtracking
-        sudokuSolved = solveBacktracking();
+        if(!solveBacktracking()){
+            throw std::string("Can not solve Sudoku, in Backtracking");
+        }
     }
     else if(algorithm == Modes::BACKTRACKING){
-        sudokuSolved = solveBacktracking();
+        if(!solveBacktracking()){
+            throw std::string("Can not solve Sudoku, in Backtracking");
+        }
     }
     else if(algorithm == Modes::LAST_RESORT_BACKTRACKING){
         bool changed;
@@ -352,7 +368,8 @@ bool Sudoku::solve(Modes algorithm){
                 changed = solveHiddenSingles();
             }
         } while (changed);
-        sudokuSolved = solveBacktracking();
+        if(!solveBacktracking()){
+            throw std::string("Can not solve Sudoku, in Backtracking");
+        }
     }
-    return sudokuSolved;
 }

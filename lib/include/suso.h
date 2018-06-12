@@ -116,7 +116,7 @@ public:
      * @return true if the field has been changed (at least one number filled
      * into a cell), false otherwise
      */
-    bool solveNakedSingles();
+    bool solveNakedSingles() throw(std::string);
 
     /*!
      * This function tries to fill cells by searching for hidden singles. This
@@ -126,7 +126,7 @@ public:
      * @return true if the field has been changed (at least one number filled
      * into a cell), false otherwise
      */
-    bool solveHiddenSingles();
+    bool solveHiddenSingles()  throw(std::string);
 
     /*!
      * This function can be used to print out the current state of the Sudoku.
@@ -160,7 +160,7 @@ public:
      * @param algorithm way to solve the sudoku
      * @return true if sudoku is solved
      */
-    bool solve(Modes algorithm);
+    void solve(Modes algorithm) throw(std::string);
 
 };
 

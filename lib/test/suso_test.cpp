@@ -46,6 +46,19 @@ TEST(susoTest, checkSolvability) {
     EXPECT_THROW(sudoku.checkSolvability(), std::string);
 }
 
+TEST(susoTest, exceptionHandlingTest) {
+    Sudoku sudoku1;
+    Sudoku sudoku2;
+    Sudoku sudoku3;
+
+    sudoku1.updateSudoku("./../../../testdata/sampleBadFile4.csv");
+    EXPECT_THROW(sudoku1.solveNakedSingles(), std::string);
+    sudoku2.updateSudoku("./../../../testdata/sampleBadFile4.csv");
+    EXPECT_THROW(sudoku2.solveHiddenSingles(), std::string);
+    sudoku3.updateSudoku("./../../../testdata/sampleBadFile4.csv");
+    EXPECT_THROW(sudoku3.solve(Modes::BACKTRACKING), std::string);
+}
+
 TEST(susoTest, updateSudokuTest) {
     Sudoku sudoku;
     bool success;
@@ -65,14 +78,14 @@ TEST(susoTest, solveBacktracking) {
     bool solved = sudoku.solveBacktracking();
     EXPECT_EQ(solved, true);
     std::array<std::array<int, 9>, 9> solutionField = {{{5, 3, 4, 6, 7, 8, 9, 1, 2},
-            {6, 7, 2, 1, 9, 5, 3, 4, 8},
-            {1, 9, 8, 3, 4, 2, 5, 6, 7},
-            {8, 5, 9, 7, 6, 1, 4, 2, 3},
-            {4, 2, 6, 8, 5, 3, 7, 9, 1},
-            {7, 1, 3, 9, 2, 4, 8, 5, 6},
-            {9, 6, 1, 5, 3, 7, 2, 8, 4},
-            {2, 8, 7, 4, 1, 9, 6, 3, 5},
-            {3, 4, 5, 2, 8, 6, 1, 7, 9}}};
+                                                               {6, 7, 2, 1, 9, 5, 3, 4, 8},
+                                                               {1, 9, 8, 3, 4, 2, 5, 6, 7},
+                                                               {8, 5, 9, 7, 6, 1, 4, 2, 3},
+                                                               {4, 2, 6, 8, 5, 3, 7, 9, 1},
+                                                               {7, 1, 3, 9, 2, 4, 8, 5, 6},
+                                                               {9, 6, 1, 5, 3, 7, 2, 8, 4},
+                                                               {2, 8, 7, 4, 1, 9, 6, 3, 5},
+                                                               {3, 4, 5, 2, 8, 6, 1, 7, 9}}};
     Sudoku solvedSudoku = Sudoku(solutionField);
     EXPECT_EQ(sudoku == solvedSudoku, true);
 }
