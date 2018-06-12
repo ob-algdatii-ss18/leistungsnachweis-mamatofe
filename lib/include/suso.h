@@ -13,7 +13,6 @@ enum Modes {
     LAST_RESORT_BACKTRACKING
 };
 
-
 /*!
  * A position contains the coordinates of one cell inside a Sudoku field.
  */
@@ -28,18 +27,10 @@ struct position {
      * number of the row.
      */
     int y;
-    /*!
-     * Checks equality of two positions.
-     */
-    //bool operator==(const position& lhs, const position& rhs);
-    /*!
-     * Checks inequality of two positions.
-     */
-    //bool operator!=(const position& lhs, const position& rhs);
 };
 
 /*!
- * A position.
+ * A invalid position.
  */
 const struct position INVALID_POS = {-1, -1};
 
@@ -156,7 +147,7 @@ public:
      * empty cells show up as zero.
      */
     friend std::ostream &operator<<(std::ostream &stream, Sudoku &sudoku);
-  
+
     /*!
      * This function can be used to compare two sudoku fields.
      * @param lhs the sudoku to compare with the other sudoku
