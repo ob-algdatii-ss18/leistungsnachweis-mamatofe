@@ -87,6 +87,11 @@ public:
      */
     std::vector<int> validNumbers(position pos);
 
+    /*!
+     * This function reads a file into the sudoku field.
+     * @param path the path of the Sudoku file
+     * @return true if the Sudoku stored in the field is correct and could be read successfully
+     */
     bool updateSudoku(std::string path);
 
     /*!
