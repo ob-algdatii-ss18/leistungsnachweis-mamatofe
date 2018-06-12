@@ -150,6 +150,12 @@ public:
     bool solveBacktracking();
 
     /*!
+     * This function checks if the sudoku is solvable.
+     * If the sudoku is not solvable, the function will throw an exception.
+     */
+    void checkSolvability() const throw(std::string);
+
+    /*!
      * This function solves the sudoku with the given algorithms.
      * @param algorithm way to solve the sudoku
      * @return true if sudoku is solved

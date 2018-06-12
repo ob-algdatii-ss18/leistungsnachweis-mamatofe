@@ -33,6 +33,18 @@ TEST(susoTest, solveNakedSingleTest) {
     EXPECT_EQ(changed, true);
 }
 
+TEST(susoTest, checkSolvability) {
+    Sudoku sudoku = Sudoku({{{5, 3, 3, 0, 7, 0, 0, 0, 0},
+                                    {6, 0, 0, 1, 9, 5, 0, 0, 0},
+                                    {0, 9, 8, 0, 0, 0, 0, 6, 0},
+                                    {8, 0, 0, 0, 6, 0, 0, 0, 3},
+                                    {4, 0, 0, 8, 0, 3, 0, 0, 1},
+                                    {7, 0, 0, 0, 2, 0, 0, 0, 6},
+                                    {0, 6, 0, 0, 0, 0, 2, 8, 0},
+                                    {0, 0, 0, 4, 1, 9, 0, 0, 5},
+                                    {0, 0, 0, 0, 8, 0, 0, 7, 9}}});
+    EXPECT_THROW(sudoku.checkSolvability(), std::string);
+}
 
 TEST(susoTest, exceptionHandlingTest) {
     Sudoku sudoku1;
@@ -45,6 +57,20 @@ TEST(susoTest, exceptionHandlingTest) {
     EXPECT_THROW(sudoku2.solveHiddenSingles(), std::string);
     sudoku3.updateSudoku("./../../../testdata/sampleBadFile4.csv");
     EXPECT_THROW(sudoku3.solve(Modes::BACKTRACKING), std::string);
+}
+
+TEST(susoTest, updateSudokuTest) {
+    Sudoku sudoku;
+    bool success;
+
+    success = sudoku.updateSudoku("./../../../testdata/sampleFile.csv");
+    EXPECT_EQ(success, true);
+    success = sudoku.updateSudoku("./../../../testdata/sampleBadFile1.csv");
+    EXPECT_EQ(success, false);
+    success = sudoku.updateSudoku("./../../../testdata/sampleBadFile2.csv");
+    EXPECT_EQ(success, false);
+    success = sudoku.updateSudoku("./../../../testdata/sampleBadFile3.csv");
+    EXPECT_EQ(success, false);
 }
 
 TEST(susoTest, solveBacktracking) {
@@ -63,20 +89,3 @@ TEST(susoTest, solveBacktracking) {
     Sudoku solvedSudoku = Sudoku(solutionField);
     EXPECT_EQ(sudoku == solvedSudoku, true);
 }
-
-
-TEST(susoTest, updateSudokuTest) {
-    Sudoku sudoku;
-    bool success;
-
-    success = sudoku.updateSudoku("./../../../testdata/sampleFile.csv");
-    EXPECT_EQ(success, true);
-    success = sudoku.updateSudoku("./../../../testdata/sampleBadFile1.csv");
-    EXPECT_EQ(success, false);
-    success = sudoku.updateSudoku("./../../../testdata/sampleBadFile2.csv");
-    EXPECT_EQ(success, false);
-    success = sudoku.updateSudoku("./../../../testdata/sampleBadFile3.csv");
-    EXPECT_EQ(success, false);
-}
-
-
