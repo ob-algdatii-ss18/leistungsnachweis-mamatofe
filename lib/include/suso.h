@@ -74,12 +74,6 @@ public:
     }
 
     /*!
-     * This function returns the sudoku field.
-     * @return the two dimensional field array
-     */
-    std::array<std::array<int, 9>, 9> getField() const;
-
-    /*!
      * This function returns all numbers that could be placed in the cell at the
      * given position so they do not conflict with the numbers already placed in
      * the field.

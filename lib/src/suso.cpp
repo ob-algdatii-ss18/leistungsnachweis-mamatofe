@@ -38,10 +38,6 @@ bool operator==(const Sudoku &lhs, const Sudoku &rhs) {
     return true;
 }
 
-std::array<std::array<int, 9>, 9> Sudoku::getField() const {
-    return field;
-}
-
 bool Sudoku::isEmpty(position pos) {
     return field[pos.y][pos.x] == 0;
 }
