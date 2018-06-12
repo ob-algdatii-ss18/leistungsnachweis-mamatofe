@@ -4,8 +4,8 @@
 
 TEST(susoTest, validNumbersTest) {
     Sudoku sudoku;
-    sudoku.updateSudoku("./../../../testdata/sudoku.csv");
-    struct position pos;
+    sudoku.loadFromFile("./../../../testdata/sudoku.csv");
+    Position pos;
     pos.x = 4;
     pos.y = 4;
     EXPECT_EQ(sudoku.validNumbers(pos).size(), 1);
@@ -26,7 +26,7 @@ TEST(susoTest, validNumbersTest) {
 TEST(susoTest, solveNakedSingleTest) {
     Sudoku sudoku;
     bool changed;
-    sudoku.updateSudoku("./../../../testdata/sudoku.csv");
+    sudoku.loadFromFile("./../../../testdata/sudoku.csv");
     changed = sudoku.solveNakedSingles();
     EXPECT_EQ(changed, true);
     changed = sudoku.solveNakedSingles();
@@ -37,7 +37,7 @@ TEST(susoTest, solveNakedSingleTest) {
 
 TEST(susoTest, checkSolvability) {
     Sudoku sudoku;
-    sudoku.updateSudoku("./../../../testdata/checkSolvability.csv");
+    sudoku.loadFromFile("./../../../testdata/checkSolvability.csv");
     EXPECT_THROW(sudoku.checkSolvability(), std::string);
 }
 
@@ -46,50 +46,50 @@ TEST(susoTest, exceptionHandlingTest) {
     Sudoku sudoku2;
     Sudoku sudoku3;
 
-    sudoku1.updateSudoku("./../../../testdata/sampleBadFile4.csv");
+    sudoku1.loadFromFile("./../../../testdata/sampleBadFile4.csv");
     EXPECT_THROW(sudoku1.solveNakedSingles(), std::string);
-    sudoku2.updateSudoku("./../../../testdata/sampleBadFile4.csv");
+    sudoku2.loadFromFile("./../../../testdata/sampleBadFile4.csv");
     EXPECT_THROW(sudoku2.solveHiddenSingles(), std::string);
-    sudoku3.updateSudoku("./../../../testdata/sampleBadFile4.csv");
-    EXPECT_THROW(sudoku3.solve(Modes::BACKTRACKING), std::string);
+    sudoku3.loadFromFile("./../../../testdata/sampleBadFile4.csv");
+    EXPECT_THROW(sudoku3.solve(Mode::BACKTRACKING), std::string);
 }
 
 TEST(susoTest, updateSudokuTest) {
     Sudoku sudoku;
     bool success;
 
-    success = sudoku.updateSudoku("./../../../testdata/sampleFile.csv");
+    success = sudoku.loadFromFile("./../../../testdata/sampleFile.csv");
     EXPECT_EQ(success, true);
-    success = sudoku.updateSudoku("./../../../testdata/sampleBadFile1.csv");
+    success = sudoku.loadFromFile("./../../../testdata/sampleBadFile1.csv");
     EXPECT_EQ(success, false);
-    success = sudoku.updateSudoku("./../../../testdata/sampleBadFile2.csv");
+    success = sudoku.loadFromFile("./../../../testdata/sampleBadFile2.csv");
     EXPECT_EQ(success, false);
-    success = sudoku.updateSudoku("./../../../testdata/sampleBadFile3.csv");
+    success = sudoku.loadFromFile("./../../../testdata/sampleBadFile3.csv");
     EXPECT_EQ(success, false);
 }
 
 TEST(susoTest, solveBacktracking) {
     Sudoku sudoku;
-    sudoku.updateSudoku("./../../../testdata/sudoku.csv");
+    sudoku.loadFromFile("./../../../testdata/sudoku.csv");
     bool solved = sudoku.solveBacktracking();
     EXPECT_EQ(solved, true);
     Sudoku solvedSudoku;
-    solvedSudoku.updateSudoku("./../../../testdata/solvedSudoku.csv");
+    solvedSudoku.loadFromFile("./../../../testdata/solvedSudoku.csv");
     EXPECT_EQ(sudoku == solvedSudoku, true);
 }
 
 TEST(susoTest, solveHiddenSingle) {
     Sudoku sudoku,solvedSudoku;
-    sudoku.updateSudoku("./../../../testdata/hiddenSingleBlock.csv");
-    solvedSudoku.updateSudoku("./../../../testdata/SolHiddenSingleBlock.csv");
+    sudoku.loadFromFile("./../../../testdata/hiddenSingleBlock.csv");
+    solvedSudoku.loadFromFile("./../../../testdata/SolHiddenSingleBlock.csv");
     EXPECT_NO_THROW(sudoku.solveHiddenSingles());
     EXPECT_EQ(sudoku == solvedSudoku, true);
-    sudoku.updateSudoku("./../../../testdata/hiddenSingleRow.csv");
-    solvedSudoku.updateSudoku("./../../../testdata/SolHiddenSingleRow.csv");
+    sudoku.loadFromFile("./../../../testdata/hiddenSingleRow.csv");
+    solvedSudoku.loadFromFile("./../../../testdata/SolHiddenSingleRow.csv");
     EXPECT_NO_THROW(sudoku.solveHiddenSingles());
     EXPECT_EQ(sudoku == solvedSudoku, true);
-    sudoku.updateSudoku("./../../../testdata/hiddenSingleColumn.csv");
-    solvedSudoku.updateSudoku("./../../../testdata/SolHiddenSingleColumn.csv");
+    sudoku.loadFromFile("./../../../testdata/hiddenSingleColumn.csv");
+    solvedSudoku.loadFromFile("./../../../testdata/SolHiddenSingleColumn.csv");
     EXPECT_NO_THROW(sudoku.solveHiddenSingles());
     EXPECT_EQ(sudoku == solvedSudoku, true);
 }

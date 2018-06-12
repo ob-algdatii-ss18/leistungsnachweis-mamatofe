@@ -8,11 +8,11 @@
 
 #include "suso.h"
 
-bool operator==(const position& lhs, const position& rhs) {
+bool operator==(const Position& lhs, const Position& rhs) {
     return (lhs.x == rhs.x && lhs.y == rhs.y);
 }
 
-bool operator!=(const position& lhs, const position& rhs) {
+bool operator!=(const Position& lhs, const Position& rhs) {
     return !(lhs == rhs);
 }
 
@@ -26,7 +26,7 @@ std::ostream &operator<<(std::ostream &stream, const Metrics &metrics) {
 }
 
 std::ostream &operator<<(std::ostream &stream, Sudoku &sudoku) {
-    position pos;
+    Position pos;
     for (pos.y = 0; pos.y < 9; pos.y++) {
         stream << " ";
         for (pos.x = 0; pos.x < 9; pos.x++) {
@@ -64,15 +64,15 @@ Metrics Sudoku::getSolvingMetrics() {
     return metrics;
 }
 
-bool Sudoku::isEmpty(position pos) {
+bool Sudoku::isEmpty(Position pos) {
     return field[pos.y][pos.x] == 0;
 }
 
-void Sudoku::insertNumber(position pos, int num) {
+void Sudoku::insertNumber(Position pos, int num) {
     field[pos.y][pos.x] = num;
 }
 
-std::vector<int> Sudoku::validNumbers(position pos) {
+std::vector<int> Sudoku::validNumbers(Position pos) {
     std::set<int> res;
     int xBlock = (pos.x / 3) * 3;
     int yBlock = (pos.y / 3) * 3;
@@ -101,7 +101,7 @@ std::vector<int> Sudoku::validNumbers(position pos) {
 
 bool Sudoku::solveNakedSingles() throw(std::string){
     bool changed = false;
-    struct position pos;
+    Position pos;
 
     for (pos.x = 0; pos.x < 9; pos.x++) {
         for (pos.y = 0; pos.y < 9; pos.y++) {
@@ -123,10 +123,10 @@ bool Sudoku::solveNakedSingles() throw(std::string){
 
 bool Sudoku::solveHiddenSingles() throw(std::string){
     bool changed = false;
-    struct position pos;
+    Position pos;
     //Spalten
     for (pos.x = 0; pos.x < 9; pos.x++) {
-        std::map<int,position> column;
+        std::map<int,Position> column;
         for (pos.y = 0; pos.y < 9; pos.y++) {
             if (isEmpty(pos)) {
                 std::vector<int> res = validNumbers(pos);
@@ -153,7 +153,7 @@ bool Sudoku::solveHiddenSingles() throw(std::string){
     }
     //Zeilen
     for (pos.y = 0; pos.y < 9; pos.y++) {
-        std::map<int,position> row;
+        std::map<int,Position> row;
         for (pos.x = 0; pos.x < 9; pos.x++) {
             if (isEmpty(pos)) {
                 std::vector<int> res = validNumbers(pos);
@@ -181,7 +181,7 @@ bool Sudoku::solveHiddenSingles() throw(std::string){
     //Block
     for (int xBlock = 0; xBlock < 9; xBlock +=3){
         for (int yBlock = 0; yBlock < 9; yBlock+=3){
-            std::map<int,position> block;
+            std::map<int,Position> block;
             for (int x = 0; x < 3; x++){
                 for (int y = 0; y <3; y++){
                     pos.x = xBlock + x;
@@ -215,7 +215,7 @@ bool Sudoku::solveHiddenSingles() throw(std::string){
     return changed;
 }
 
-bool Sudoku::getNextEmptyCell(position &pos) {
+bool Sudoku::getNextEmptyCell(Position &pos) {
     for (pos.x = 0; pos.x < 9; pos.x++) {
         for (pos.y = 0; pos.y < 9; pos.y++) {
             if (isEmpty(pos)) {
@@ -227,7 +227,7 @@ bool Sudoku::getNextEmptyCell(position &pos) {
 }
 
 bool Sudoku::solveBacktracking(){
-    position pos;
+    Position pos;
     //Überprüfen, ob es noch eine freie Zelle gibt. Falls ja mit der nächsten weiter machen.
     if (!getNextEmptyCell(pos)) {
         return true;
@@ -292,7 +292,7 @@ void Sudoku::checkSolvability() const throw(std::string) {
     }
 }
 
-bool Sudoku::updateSudoku(std::string path) {
+bool Sudoku::loadFromFile(std::string path) {
     bool res = false;
     std::ifstream fin;
     fin.open(path, std::ios::in);
@@ -332,7 +332,7 @@ bool Sudoku::updateSudoku(std::string path) {
                 res = false;
                 break;
             } else {
-                struct position pos;
+                Position pos;
                 pos.x = column_number;
                 pos.y = line_number;
                 insertNumber(pos, number);
@@ -353,9 +353,9 @@ bool Sudoku::updateSudoku(std::string path) {
     return res;
 }
 
-void Sudoku::solve(Modes algorithm) throw(std::string){
+void Sudoku::solve(Mode algorithm) throw(std::string){
     auto start = std::chrono::high_resolution_clock::now();
-    if(algorithm == Modes::DEFAULT){
+    if(algorithm == Mode::DEFAULT){
         bool changed;
         //Naked Singles
         do {
@@ -370,12 +370,12 @@ void Sudoku::solve(Modes algorithm) throw(std::string){
             throw std::string("Can not solve Sudoku, backtracking has failed.");
         }
     }
-    else if(algorithm == Modes::BACKTRACKING){
+    else if(algorithm == Mode::BACKTRACKING){
         if(!solveBacktracking()){
             throw std::string("Can not solve Sudoku, backtracking has failed.");
         }
     }
-    else if(algorithm == Modes::LAST_RESORT_BACKTRACKING){
+    else if(algorithm == Mode::LAST_RESORT_BACKTRACKING){
         bool changed;
         //Naked Singles
         do {
@@ -388,22 +388,22 @@ void Sudoku::solve(Modes algorithm) throw(std::string){
             throw std::string("Can not solve Sudoku, backtracking has failed.");
         }
     }
-    else if(algorithm == Modes::HIDDEN) {
+    else if(algorithm == Mode::HIDDEN) {
         bool changed;
         do {
             changed = solveHiddenSingles();
         } while (changed);
-        struct position pos;
+        Position pos;
         if(getNextEmptyCell(pos)) {
             throw std::string("Can not solve Sudoku, hidden single has failed.");
         }
     }
-    else if(algorithm == Modes::NAKED) {
+    else if(algorithm == Mode::NAKED) {
         bool changed;
         do {
             changed = solveNakedSingles();
         } while (changed);
-        struct position pos;
+        Position pos;
         if(getNextEmptyCell(pos)) {
             throw std::string("Can not solve Sudoku, naked single has failed.");
         }

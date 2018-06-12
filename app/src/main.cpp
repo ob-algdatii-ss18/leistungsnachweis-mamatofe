@@ -7,18 +7,18 @@
 int main(int argc, const char *argv[]) {
     Sudoku sudoku;
 
-    std::unordered_map<std::string, Modes> map{
-            {"default",                  Modes::DEFAULT},
-            {"naked",                    Modes::NAKED},
-            {"hidden",                   Modes::HIDDEN},
-            {"backtracking",             Modes::BACKTRACKING},
-            {"last_resort_backtracking", Modes::LAST_RESORT_BACKTRACKING},
-            {"lrb",                      Modes::LAST_RESORT_BACKTRACKING}};
+    std::unordered_map<std::string, Mode> map{
+            {"default",                  Mode::DEFAULT},
+            {"naked",                    Mode::NAKED},
+            {"hidden",                   Mode::HIDDEN},
+            {"backtracking",             Mode::BACKTRACKING},
+            {"lrb",                      Mode::LAST_RESORT_BACKTRACKING},
+            {"last_resort_backtracking", Mode::LAST_RESORT_BACKTRACKING}};
 
     args::ArgumentParser parser("Solves the classical Sudoku game.");
     parser.LongSeparator(" ");
     args::HelpFlag help(parser, "help", "Display this help", {'h', "help"});
-    args::MapFlag<std::string, Modes> algo(parser, "algorithm",
+    args::MapFlag<std::string, Mode> algo(parser, "algorithm",
                                            "The algorithm that should be used to solve the Sudoku. "
                                            "Possible values are: default, backtracking, lrb (last_resort_backtracking)",
                                            {'a', "algo"}, map);
@@ -47,7 +47,7 @@ int main(int argc, const char *argv[]) {
         return EXIT_FAILURE;
     }
 
-    if (!sudoku.updateSudoku(args::get(file))) {
+    if (!sudoku.loadFromFile(args::get(file))) {
         std::cout << "Failed to load the data from file '" + args::get(file) + "'" << std::endl;
         return EXIT_FAILURE;
     }

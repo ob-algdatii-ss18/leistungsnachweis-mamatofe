@@ -5,7 +5,7 @@
 #include <vector>
 #include <chrono>
 
-enum Modes {
+enum Mode {
     DEFAULT,
     NAKED,
     HIDDEN,
@@ -16,7 +16,7 @@ enum Modes {
 /*!
  * A position contains the coordinates of one cell inside a Sudoku field.
  */
-struct position {
+struct Position {
     /*!
      * The x-component of the coordinate. This can also be described as the
      * number of the column.
@@ -32,7 +32,7 @@ struct position {
 /*!
  * A invalid position.
  */
-const struct position INVALID_POS = {-1, -1};
+const Position INVALID_POS = {-1, -1};
 
 /*!
  * Metrics contain information about a single solving process.
@@ -76,7 +76,7 @@ private:
      * @param pos the position to check
      * @return true if the cell is empty, false otherwise
      */
-    bool isEmpty(position pos);
+    bool isEmpty(Position pos);
 
     /*!
      * Writes a number into the Sudoku field at a given position.
@@ -84,14 +84,14 @@ private:
      * @param pos where to insert the number
      * @param num the number to insert
      */
-    void insertNumber(position pos, int num);
+    void insertNumber(Position pos, int num);
 
     /*!
      * Returns if the sudoku has one or more empty cell to fill.
      * @param pos reference to the position of the next empty cell
      * @return true if at least one cell is empty
      */
-    bool getNextEmptyCell(position &pos);
+    bool getNextEmptyCell(Position &pos);
 
 public:
     /*!
@@ -113,14 +113,14 @@ public:
      * @param pos the position to check
      * @return all possible numbers for the position
      */
-    std::vector<int> validNumbers(position pos);
+    std::vector<int> validNumbers(Position pos);
 
     /*!
      * This function reads a file into the sudoku field.
      * @param path the path of the Sudoku file
      * @return true if the Sudoku stored in the field is correct and could be read successfully
      */
-    bool updateSudoku(std::string path);
+    bool loadFromFile(std::string path);
 
     /*!
      * This function tries to fill cells by searching for naked singles. These
@@ -173,7 +173,7 @@ public:
      * @param algorithm way to solve the sudoku
      * @return true if sudoku is solved
      */
-    void solve(Modes algorithm) throw(std::string);
+    void solve(Mode algorithm) throw(std::string);
 
 };
 
