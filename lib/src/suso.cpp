@@ -254,3 +254,35 @@ void Sudoku::checkSolvability() const throw(std::string) {
         }
     }
 }
+
+bool Sudoku::solve(Modes algorithm){
+    bool sudokuSolved = false;
+    if(algorithm == Modes::DEFAULT){
+        bool changed;
+        //Naked Singles
+        do {
+            changed = solveNakedSingles();
+        } while (changed);
+        //Hidden Single
+        do {
+            changed = solveHiddenSingles();
+        } while (changed);
+        //Backtracking
+        sudokuSolved = solveBacktracking();
+    }
+    else if(algorithm == Modes::BACKTRACKING){
+        sudokuSolved = solveBacktracking();
+    }
+    else if(algorithm == Modes::LAST_RESORT_BACKTRACKING){
+        bool changed;
+        //Naked Singles
+        do {
+            changed = solveNakedSingles();
+            if (!changed){
+                solveHiddenSingles();
+            }
+        } while (changed);
+        sudokuSolved = solveBacktracking();
+    }
+    return sudokuSolved;
+}

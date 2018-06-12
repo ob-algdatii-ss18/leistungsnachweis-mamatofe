@@ -4,6 +4,13 @@
 #include <array>
 #include <vector>
 
+enum Modes {
+    DEFAULT,
+    BACKTRACKING,
+    LAST_RESORT_BACKTRACKING
+};
+
+
 /*!
  * A position contains the coordinates of one cell inside a Sudoku field.
  */
@@ -132,6 +139,13 @@ public:
      * If the sudoku is not solvable, the function will throw an exception.
      */
     void checkSolvability() const throw(std::string);
+
+    /*!
+     * This function solves the sudoku with the given algorithms.
+     * @param algorithm way to solve the sudoku
+     * @return true if sudoku is solved
+     */
+    bool solve(Modes algorithm);
 
 };
 
