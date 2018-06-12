@@ -1,6 +1,7 @@
 #include "gtest/gtest.h"
 #include "suso.h"
 
+
 TEST(susoTest, validNumbersTest) {
     Sudoku sudoku;
     struct position pos;
@@ -30,6 +31,21 @@ TEST(susoTest, solveNakedSingleTest) {
     EXPECT_EQ(changed, true);
     changed = sudoku.solveNakedSingles();
     EXPECT_EQ(changed, true);
+}
+
+
+TEST(susoTest, updateSudokuTest) {
+Sudoku sudoku;
+bool success;
+
+success = sudoku.updateSudoku("./../../../testdata/sampleFile.csv");
+EXPECT_EQ(success, true);
+success = sudoku.updateSudoku("./../../../testdata/sampleBadFile1.csv");
+EXPECT_EQ(success, false);
+success = sudoku.updateSudoku("./../../../testdata/sampleBadFile2.csv");
+EXPECT_EQ(success, false);
+success = sudoku.updateSudoku("./../../../testdata/sampleBadFile3.csv");
+EXPECT_EQ(success, false);
 }
 
 TEST(susoTest, solveBacktracking) {

@@ -2,7 +2,7 @@
 #include <vector>
 #include <set>
 #include <map>
-
+#include <fstream>
 #include "suso.h"
 
 bool operator==(const position& lhs, const position& rhs) {
@@ -210,6 +210,64 @@ bool Sudoku::solveBacktracking() {
         insertNumber(pos, 0); //Zelle zurücksetzen
     }
     return false;
+}
+
+bool Sudoku::updateSudoku(std::string path) {
+    bool res = false;
+    std::ifstream fin;
+    fin.open(path, std::ios::in);
+
+    bool write = true;
+    char read_character;
+    int line_number = 0;
+    int column_number = 0;
+
+    while (!fin.eof()) {
+        fin.get(read_character);
+
+        if (read_character == '\n') {
+            if (column_number == 8 || (column_number == 0 && line_number > 8)) {
+                ++line_number;
+                column_number = 0;
+                write = true;
+            } else {
+                std::cout << "line error" << column_number << line_number << std::endl;
+                res = false;
+                break;
+            }
+
+        } else if (read_character == ',') {
+            if (column_number < 8) {
+                ++column_number;
+                write = true;
+            } else {
+                std::cout << "Too many symbols per line" << std::endl;
+                res = false;
+                break;
+            };
+        } else if (isdigit(read_character)) {
+            int number = read_character - '0';
+
+            if (number < 0 || number > 9 || line_number > 8 || column_number > 8 || !write) {
+                res = false;
+                break;
+            } else {
+                struct position pos;
+                pos.x = column_number;
+                pos.y = line_number;
+                insertNumber(pos, number);
+                write = false;
+                res = true;
+            }
+        } else {
+            res = false;
+            break;
+        }
+    }
+
+    fin.close();
+
+    return res;
 }
 
 bool Sudoku::solve(Modes algorithm){

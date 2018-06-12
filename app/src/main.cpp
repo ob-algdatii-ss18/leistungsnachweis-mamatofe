@@ -42,6 +42,14 @@ int main(int argc, const char *argv[]) {
     }
 
     Sudoku sudoku;
+
+    if(sudoku.updateSudoku("./../../testdata/sampleFile.csv")){
+        std::cout << "success" << std::endl;
+    }
+    else{
+        std::cout << "failure" << std::endl;
+    }
+
     std::cout << sudoku << std::endl;
 
     sudoku.solve(LAST_RESORT_BACKTRACKING);
