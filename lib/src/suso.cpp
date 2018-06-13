@@ -399,7 +399,7 @@ void Sudoku::solve(Mode algorithm) throw(std::string) {
         } while (changed);
         Position pos;
         if (getNextEmptyCell(pos)) {
-            throw std::string("Can not solve Sudoku, hidden single has failed.");
+            throw std::string("Can not solve Sudoku by only searching for hidden singles.");
         }
     } else if (algorithm == Mode::NAKED) {
         bool changed;
@@ -408,7 +408,7 @@ void Sudoku::solve(Mode algorithm) throw(std::string) {
         } while (changed);
         Position pos;
         if (getNextEmptyCell(pos)) {
-            throw std::string("Can not solve Sudoku, naked single has failed.");
+            throw std::string("Can not solve Sudoku by only searching for naked singles.");
         }
     }
     auto end = std::chrono::high_resolution_clock::now();
