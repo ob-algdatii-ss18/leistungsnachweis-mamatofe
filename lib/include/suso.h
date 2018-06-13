@@ -7,6 +7,8 @@
 
 enum Modes {
     DEFAULT,
+    NAKED,
+    HIDDEN,
     BACKTRACKING,
     LAST_RESORT_BACKTRACKING
 };
