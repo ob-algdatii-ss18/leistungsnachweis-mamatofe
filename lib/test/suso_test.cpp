@@ -38,7 +38,7 @@ TEST(susoTest, solveNakedSingleTest) {
 TEST(susoTest, checkSolvability) {
     Sudoku sudoku;
     sudoku.loadFromFile("./../../../testdata/checkSolvability.csv");
-    EXPECT_THROW(sudoku.checkSolvability(), std::string);
+    EXPECT_THROW(sudoku.checkSolvability(), std::runtime_error);
 }
 
 TEST(susoTest, exceptionHandlingTest) {
@@ -47,11 +47,11 @@ TEST(susoTest, exceptionHandlingTest) {
     Sudoku sudoku3;
 
     sudoku1.loadFromFile("./../../../testdata/sampleBadFile4.csv");
-    EXPECT_THROW(sudoku1.solveNakedSingles(), std::string);
+    EXPECT_THROW(sudoku1.solveNakedSingles(), std::runtime_error);
     sudoku2.loadFromFile("./../../../testdata/sampleBadFile4.csv");
-    EXPECT_THROW(sudoku2.solveHiddenSingles(), std::string);
+    EXPECT_THROW(sudoku2.solveHiddenSingles(), std::runtime_error);
     sudoku3.loadFromFile("./../../../testdata/sampleBadFile4.csv");
-    EXPECT_THROW(sudoku3.solve(Mode::BACKTRACKING), std::string);
+    EXPECT_THROW(sudoku3.solve(Mode::BACKTRACKING), std::runtime_error);
 }
 
 TEST(susoTest, updateSudokuTest) {

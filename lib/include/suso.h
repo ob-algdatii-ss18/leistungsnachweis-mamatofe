@@ -129,7 +129,7 @@ public:
      * @return true if the field has been changed (at least one number filled
      * into a cell), false otherwise
      */
-    bool solveNakedSingles() throw(std::string);
+    bool solveNakedSingles() noexcept(false);
 
     /*!
      * This function tries to fill cells by searching for hidden singles. This
@@ -139,7 +139,7 @@ public:
      * @return true if the field has been changed (at least one number filled
      * into a cell), false otherwise
      */
-    bool solveHiddenSingles()  throw(std::string);
+    bool solveHiddenSingles() noexcept(false);
 
     /*!
      * This function can be used to print out the current state of the Sudoku.
@@ -166,14 +166,14 @@ public:
      * This function checks if the sudoku is solvable.
      * If the sudoku is not solvable, the function will throw an exception.
      */
-    void checkSolvability() const throw(std::string);
+    void checkSolvability() const noexcept(false);
 
     /*!
      * This function solves the sudoku with the given algorithms.
      * @param algorithm way to solve the sudoku
      * @return true if sudoku is solved
      */
-    void solve(Mode algorithm) throw(std::string);
+    void solve(Mode algorithm) noexcept(false);
 
 };
 

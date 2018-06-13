@@ -5,7 +5,7 @@
 
 
 int main(int argc, const char *argv[]) {
-    Sudoku sudoku;
+    Sudoku sudoku{};
 
     std::unordered_map<std::string, Mode> map{
             {"default",                  Mode::DEFAULT},
@@ -27,7 +27,7 @@ int main(int argc, const char *argv[]) {
     try {
         parser.ParseCLI(argc, argv);
     }
-    catch (args::Help) {
+    catch (args::Help&) {
         std::cout << parser;
         return EXIT_SUCCESS;
     }
@@ -60,9 +60,9 @@ int main(int argc, const char *argv[]) {
         std::cout << "Solved Sudoku:" << std::endl << sudoku << std::endl;
         std::cout << sudoku.getSolvingMetrics() << std::endl;
     }
-    catch (const std::string &e) {
+    catch (const std::runtime_error &e) {
         std::cout << "Sudoku could not be solved:" << std::endl;
-        std::cout << e << std::endl;
+        std::cout << e.what() << std::endl;
         return EXIT_FAILURE;
     }
     return EXIT_SUCCESS;
