@@ -36,11 +36,6 @@ int main(int argc, const char *argv[]) {
         std::cerr << parser;
         return EXIT_FAILURE;
     }
-    catch (args::ValidationError &e) {
-        std::cerr << e.what() << std::endl;
-        std::cerr << parser;
-        return EXIT_FAILURE;
-    }
 
     if (!file) {
         std::cout << "You need to give a file containing the Sudoku to solve." << std::endl;

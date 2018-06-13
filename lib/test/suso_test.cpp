@@ -93,3 +93,40 @@ TEST(susoTest, solveHiddenSingle) {
     EXPECT_NO_THROW(sudoku.solveHiddenSingles());
     EXPECT_EQ(sudoku == solvedSudoku, true);
 }
+
+TEST(susoTest, solveSolvable) {
+    Sudoku sudoku, solvedSudoku;
+    solvedSudoku.loadFromFile("./../../../testdata/sampleFileSol.csv");
+
+    sudoku.loadFromFile("./../../../testdata/sampleFile.csv");
+    EXPECT_NO_THROW(sudoku.solve(Mode::DEFAULT));
+    EXPECT_EQ(sudoku == solvedSudoku, true);
+
+    sudoku.loadFromFile("./../../../testdata/sampleFile.csv");
+    EXPECT_NO_THROW(sudoku.solve(Mode::BACKTRACKING));
+    EXPECT_EQ(sudoku == solvedSudoku, true);
+
+    sudoku.loadFromFile("./../../../testdata/sampleFile.csv");
+    EXPECT_NO_THROW(sudoku.solve(Mode::LAST_RESORT_BACKTRACKING));
+    EXPECT_EQ(sudoku == solvedSudoku, true);
+
+    solvedSudoku.loadFromFile("./../../../testdata/solvedSudoku.csv");
+
+    sudoku.loadFromFile("./../../../testdata/sudoku.csv");
+    EXPECT_NO_THROW(sudoku.solve(Mode::NAKED));
+    EXPECT_EQ(sudoku == solvedSudoku, true);
+
+    sudoku.loadFromFile("./../../../testdata/sudoku.csv");
+    EXPECT_NO_THROW(sudoku.solve(Mode::HIDDEN));
+    EXPECT_EQ(sudoku == solvedSudoku, true);
+}
+
+TEST(susoTest, solveUnsolvable) {
+    Sudoku sudoku;
+
+    sudoku.loadFromFile("./../../../testdata/sampleFile.csv");
+    EXPECT_THROW(sudoku.solve(Mode::NAKED), std::runtime_error);
+
+    sudoku.loadFromFile("./../../../testdata/sampleFile.csv");
+    EXPECT_THROW(sudoku.solve(Mode::HIDDEN), std::runtime_error);
+}
