@@ -5,29 +5,29 @@
 
 
 int main(int argc, const char *argv[]) {
-    Sudoku sudoku;
+    Sudoku sudoku{};
 
-    std::unordered_map<std::string, Modes> map{
-            {"default",                  Modes::DEFAULT},
-            {"naked",                    Modes::NAKED},
-            {"hidden",                   Modes::HIDDEN},
-            {"backtracking",             Modes::BACKTRACKING},
-            {"last_resort_backtracking", Modes::LAST_RESORT_BACKTRACKING},
-            {"lrb",                      Modes::LAST_RESORT_BACKTRACKING}};
+    std::unordered_map<std::string, Mode> map{
+            {"default",                  Mode::DEFAULT},
+            {"naked",                    Mode::NAKED},
+            {"hidden",                   Mode::HIDDEN},
+            {"backtracking",             Mode::BACKTRACKING},
+            {"lrb",                      Mode::LAST_RESORT_BACKTRACKING},
+            {"last_resort_backtracking", Mode::LAST_RESORT_BACKTRACKING}};
 
     args::ArgumentParser parser("Solves the classical Sudoku game.");
     parser.LongSeparator(" ");
     args::HelpFlag help(parser, "help", "Display this help", {'h', "help"});
-    args::MapFlag<std::string, Modes> algo(parser, "algorithm",
-                                           "The algorithm that should be used to solve the Sudoku. "
-                                           "Possible values are: default, backtracking, lrb (last_resort_backtracking)",
-                                           {'a', "algo"}, map);
+    args::MapFlag<std::string, Mode> algo(parser, "algorithm",
+                                          "The algorithm that should be used to solve the Sudoku. "
+                                          "Possible values are: default, backtracking, lrb (last_resort_backtracking)",
+                                          {'a', "algo"}, map);
     args::Positional<std::string> file(parser, "file", "The file containing the Sudoku to solve");
 
     try {
         parser.ParseCLI(argc, argv);
     }
-    catch (args::Help) {
+    catch (args::Help&) {
         std::cout << parser;
         return EXIT_SUCCESS;
     }
@@ -47,7 +47,7 @@ int main(int argc, const char *argv[]) {
         return EXIT_FAILURE;
     }
 
-    if (!sudoku.updateSudoku(args::get(file))) {
+    if (!sudoku.loadFromFile(args::get(file))) {
         std::cout << "Failed to load the data from file '" + args::get(file) + "'" << std::endl;
         return EXIT_FAILURE;
     }
@@ -60,9 +60,9 @@ int main(int argc, const char *argv[]) {
         std::cout << "Solved Sudoku:" << std::endl << sudoku << std::endl;
         std::cout << sudoku.getSolvingMetrics() << std::endl;
     }
-    catch (const std::string &e) {
+    catch (const std::runtime_error &e) {
         std::cout << "Sudoku could not be solved:" << std::endl;
-        std::cout << e << std::endl;
+        std::cout << e.what() << std::endl;
         return EXIT_FAILURE;
     }
     return EXIT_SUCCESS;
