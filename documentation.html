@@ -1,0 +1,438 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Documentation &#8212; Sudoku-Solver 0.0.1 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Usage" href="usage.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">Sudoku-Solver</a></h1>
+
+
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=ob-algdatii-ss18&repo=leistungsnachweis-mamatofe&type=watch&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="build.html">Build information</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usage.html">Usage</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Documentation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#glossary">Glossary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#library-documentation">Library documentation</a></li>
+</ul>
+</li>
+</ul>
+
+
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="documentation">
+<span id="id1"></span><h1>Documentation<a class="headerlink" href="#documentation" title="Permalink to this headline">¶</a></h1>
+<p>The application is split into a CLI that can be found under <code class="docutils literal"><span class="pre">app/</span></code> and a library (<code class="docutils literal"><span class="pre">suso</span></code>) that does all the heavylifting.
+You can find the documentation of the library here.</p>
+<div class="section" id="glossary">
+<h2>Glossary<a class="headerlink" href="#glossary" title="Permalink to this headline">¶</a></h2>
+<dl class="glossary docutils">
+<dt id="term-cell">cell</dt>
+<dd>The cells are the places of a Sudoku where the numbers are placed.
+A cell can be empty or filled with exactly one number.</dd>
+<dt id="term-field">field</dt>
+<dd>The whole 9x9 grid of a Sudoku with all its 81 cells.</dd>
+<dt id="term-row">row</dt>
+<dd>A row of 9 cells in the field. There are always nine rows in one field.</dd>
+<dt id="term-column">column</dt>
+<dd>A column of 9 cells in the field.
+There are always nine columns in one field.</dd>
+<dt id="term-block">block</dt>
+<dd>A section of the field with 3x3 cells.
+There are nine of these non overlapping sections in one field.
+In the visualized Sudokus they are mostly marked by stronger lines.</dd>
+<dt id="term-group">group</dt>
+<dd>An area where numbers have to be unique in.
+This can be a block, a row or a column.</dd>
+</dl>
+</div>
+<div class="section" id="library-documentation">
+<h2>Library documentation<a class="headerlink" href="#library-documentation" title="Permalink to this headline">¶</a></h2>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Enums</p>
+<dl class="type">
+<dt id="_CPPv24Mode">
+<span id="Mode"></span><span class="target" id="suso_8h_1a46c8a310cf4c094f8c80e1cb8dc1f911"></span><em class="property">enum </em><code class="descname">Mode</code><a class="headerlink" href="#_CPPv24Mode" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p><em>Values:</em></p>
+<dl class="enumerator">
+<dt id="_CPPv27DEFAULT">
+<span class="target" id="suso_8h_1a46c8a310cf4c094f8c80e1cb8dc1f911a88ec7d5086d2469ba843c7fcceade8a6"></span><code class="descname">DEFAULT</code><a class="headerlink" href="#_CPPv27DEFAULT" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="enumerator">
+<dt id="_CPPv25NAKED">
+<span class="target" id="suso_8h_1a46c8a310cf4c094f8c80e1cb8dc1f911a8d8ea785a04d4c0dbf52c116caee5144"></span><code class="descname">NAKED</code><a class="headerlink" href="#_CPPv25NAKED" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="enumerator">
+<dt id="_CPPv26HIDDEN">
+<span class="target" id="suso_8h_1a46c8a310cf4c094f8c80e1cb8dc1f911a41ae0a505430bf564b119bc82db7592d"></span><code class="descname">HIDDEN</code><a class="headerlink" href="#_CPPv26HIDDEN" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="enumerator">
+<dt id="_CPPv212BACKTRACKING">
+<span class="target" id="suso_8h_1a46c8a310cf4c094f8c80e1cb8dc1f911a4d445e47cff34725e44a4e98b8f84a3f"></span><code class="descname">BACKTRACKING</code><a class="headerlink" href="#_CPPv212BACKTRACKING" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="enumerator">
+<dt id="_CPPv224LAST_RESORT_BACKTRACKING">
+<span class="target" id="suso_8h_1a46c8a310cf4c094f8c80e1cb8dc1f911a647fc2df5057e207d32b959e4fc63ea2"></span><code class="descname">LAST_RESORT_BACKTRACKING</code><a class="headerlink" href="#_CPPv224LAST_RESORT_BACKTRACKING" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Functions</p>
+<dl class="function">
+<dt id="_CPPv2lsRNSt7ostreamERK7Metrics">
+<span id="lshift-operator__osR.MetricsCR"></span><span class="target" id="suso_8h_1addbf846af1439168a7606a496fe7b7b6"></span>std::ostream &amp;<code class="descname">operator&lt;&lt;</code><span class="sig-paren">(</span>std::ostream &amp;<em>stream</em>, <em class="property">const</em> <a class="reference internal" href="#_CPPv27Metrics" title="Metrics">Metrics</a> &amp;<em>metrics</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2lsRNSt7ostreamERK7Metrics" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Variables</p>
+<dl class="member">
+<dt id="_CPPv211INVALID_POS">
+<span id="INVALID_POS__PositionC"></span><span class="target" id="suso_8h_1a9b1253677d9c6ffb6e02f125d4f0d142"></span><em class="property">const</em> <a class="reference internal" href="#_CPPv28Position" title="Position">Position</a> <code class="descname">INVALID_POS</code> = {-1, -1}<a class="headerlink" href="#_CPPv211INVALID_POS" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>A invalid position. </p>
+</dd></dl>
+
+</div>
+<dl class="class">
+<dt id="_CPPv28Position">
+<span id="Position"></span><span class="target" id="structPosition"></span><em class="property">struct </em><code class="descname">Position</code><a class="headerlink" href="#_CPPv28Position" title="Permalink to this definition">¶</a><br /></dt>
+<dd><em>#include &lt;suso.h&gt;</em><p>A position contains the coordinates of one cell inside a <a class="reference internal" href="#classSudoku"><span class="std std-ref">Sudoku</span></a> field. </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Public Members</p>
+<dl class="member">
+<dt id="_CPPv2N8Position1xE">
+<span id="Position::x__i"></span><span class="target" id="structPosition_1aeda152ffeee17ae5be9c02327b2408d8"></span>int <code class="descname">x</code><a class="headerlink" href="#_CPPv2N8Position1xE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>The x-component of the coordinate. This can also be described as the number of the column. </p>
+</dd></dl>
+
+<dl class="member">
+<dt id="_CPPv2N8Position1yE">
+<span id="Position::y__i"></span><span class="target" id="structPosition_1a3c08e9213d4726b21caba3073192c4a3"></span>int <code class="descname">y</code><a class="headerlink" href="#_CPPv2N8Position1yE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>The y-component of the coordinate. This can also be described as the number of the row. </p>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+<dl class="class">
+<dt id="_CPPv27Metrics">
+<span id="Metrics"></span><span class="target" id="structMetrics"></span><em class="property">struct </em><code class="descname">Metrics</code><a class="headerlink" href="#_CPPv27Metrics" title="Permalink to this definition">¶</a><br /></dt>
+<dd><em>#include &lt;suso.h&gt;</em><p><a class="reference internal" href="#structMetrics"><span class="std std-ref">Metrics</span></a> contain information about a single solving process. </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Public Members</p>
+<dl class="member">
+<dt id="_CPPv2N7Metrics5givenE">
+<span id="Metrics::given__i"></span><span class="target" id="structMetrics_1a71bbeffe52432f1e612f893530e1b62b"></span>int <code class="descname">given</code><a class="headerlink" href="#_CPPv2N7Metrics5givenE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Number of cells already filled in the loaded <a class="reference internal" href="#classSudoku"><span class="std std-ref">Sudoku</span></a> </p>
+</dd></dl>
+
+<dl class="member">
+<dt id="_CPPv2N7Metrics11solvedNakedE">
+<span id="Metrics::solvedNaked__i"></span><span class="target" id="structMetrics_1a68b660bc2231d8cb3fa959acafbe1395"></span>int <code class="descname">solvedNaked</code><a class="headerlink" href="#_CPPv2N7Metrics11solvedNakedE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Number of cells filled by searching for naked singles </p>
+</dd></dl>
+
+<dl class="member">
+<dt id="_CPPv2N7Metrics12solvedHiddenE">
+<span id="Metrics::solvedHidden__i"></span><span class="target" id="structMetrics_1ab4a51fe3d1ff29920f4fecf20eb79fb7"></span>int <code class="descname">solvedHidden</code><a class="headerlink" href="#_CPPv2N7Metrics12solvedHiddenE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Number of cells filled by searching for hidden singles </p>
+</dd></dl>
+
+<dl class="member">
+<dt id="_CPPv2N7Metrics18solvedBacktrackingE">
+<span id="Metrics::solvedBacktracking__i"></span><span class="target" id="structMetrics_1a9df4f1b792e7b4457d20546712695077"></span>int <code class="descname">solvedBacktracking</code><a class="headerlink" href="#_CPPv2N7Metrics18solvedBacktrackingE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Number of cells filled by the backtracking algorithm. </p>
+</dd></dl>
+
+<dl class="member">
+<dt id="_CPPv2N7Metrics8durationE">
+<span id="Metrics::duration__std::chrono::duration:double.std::milli:"></span><span class="target" id="structMetrics_1a9de2debe8e036710e99c29e0863ecc97"></span>std::chrono::duration&lt;double, std::milli&gt; <code class="descname">duration</code><a class="headerlink" href="#_CPPv2N7Metrics8durationE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>The amount of time that was needed to solve the <a class="reference internal" href="#classSudoku"><span class="std std-ref">Sudoku</span></a> </p>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+<dl class="class">
+<dt id="_CPPv26Sudoku">
+<span id="Sudoku"></span><span class="target" id="classSudoku"></span><em class="property">class </em><code class="descname">Sudoku</code><a class="headerlink" href="#_CPPv26Sudoku" title="Permalink to this definition">¶</a><br /></dt>
+<dd><em>#include &lt;suso.h&gt;</em><p>A <a class="reference internal" href="#classSudoku"><span class="std std-ref">Sudoku</span></a> represents the complete field of one <a class="reference internal" href="#classSudoku"><span class="std std-ref">Sudoku</span></a>. It also has functions to solve the <a class="reference internal" href="#classSudoku"><span class="std std-ref">Sudoku</span></a> using different algorithms. </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Public Functions</p>
+<dl class="function">
+<dt id="_CPPv2N6Sudoku6SudokuEv">
+<span id="Sudoku::Sudoku"></span><span class="target" id="classSudoku_1a59395d2a4b810c1c01dcd9b3cef402b1"></span><code class="descname">Sudoku</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N6Sudoku6SudokuEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Creates a new empty <a class="reference internal" href="#classSudoku"><span class="std std-ref">Sudoku</span></a>. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv2N6Sudoku17getSolvingMetricsEv">
+<span id="Sudoku::getSolvingMetrics"></span><span class="target" id="classSudoku_1adb2140a74fccb25812258fbfd39642eb"></span><a class="reference internal" href="#_CPPv27Metrics" title="Metrics">Metrics</a> <code class="descname">getSolvingMetrics</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N6Sudoku17getSolvingMetricsEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Get information about how this <a class="reference internal" href="#classSudoku"><span class="std std-ref">Sudoku</span></a> has been solved. This is only filled completely after successfully solving it. <dl class="docutils">
+<dt><strong>Return</strong></dt>
+<dd><a class="reference internal" href="#structMetrics"><span class="std std-ref">Metrics</span></a> about the previous solving process </dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv2N6Sudoku12validNumbersE8Position">
+<span id="Sudoku::validNumbers__Position"></span><span class="target" id="classSudoku_1ac75da1077fa236166c3119a574f667d4"></span>std::vector&lt;int&gt; <code class="descname">validNumbers</code><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv28Position" title="Position">Position</a> <em>pos</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N6Sudoku12validNumbersE8Position" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>This function returns all numbers that could be placed in the cell at the given position so they do not conflict with the numbers already placed in the field. <dl class="docutils">
+<dt><strong>Return</strong></dt>
+<dd>all possible numbers for the position </dd>
+<dt><strong>Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal"><span class="pre">pos</span></code>: the position to check </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv2N6Sudoku12loadFromFileENSt6stringE">
+<span id="Sudoku::loadFromFile__ss"></span><span class="target" id="classSudoku_1a82d3fddb50d6c7838a8cdeb198b76271"></span>bool <code class="descname">loadFromFile</code><span class="sig-paren">(</span>std::string <em>path</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N6Sudoku12loadFromFileENSt6stringE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>This function reads a file into the sudoku field. <dl class="docutils">
+<dt><strong>Return</strong></dt>
+<dd>true if the <a class="reference internal" href="#classSudoku"><span class="std std-ref">Sudoku</span></a> stored in the field is correct and could be read successfully </dd>
+<dt><strong>Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal"><span class="pre">path</span></code>: the path of the <a class="reference internal" href="#classSudoku"><span class="std std-ref">Sudoku</span></a> file </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv2N6Sudoku17solveNakedSinglesEv">
+<span id="Sudoku::solveNakedSingles"></span><span class="target" id="classSudoku_1a49a0f45faff506c2d4af227c386cb359"></span>bool <code class="descname">solveNakedSingles</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N6Sudoku17solveNakedSinglesEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>This function tries to fill cells by searching for naked singles. These are cells where only one number is valid. The function iterates over the whole field and fills in the number when it finds a naked single. <dl class="docutils">
+<dt><strong>Return</strong></dt>
+<dd>true if the field has been changed (at least one number filled into a cell), false otherwise </dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv2N6Sudoku18solveHiddenSinglesEv">
+<span id="Sudoku::solveHiddenSingles"></span><span class="target" id="classSudoku_1abbbcb82fa7dc7b0c84ee19385696fa68"></span>bool <code class="descname">solveHiddenSingles</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N6Sudoku18solveHiddenSinglesEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>This function tries to fill cells by searching for hidden singles. This is a cell that is the only one in a group, that could contain a specific number. The function iterates over all groups and fills in the numbers when it finds hidden singles inside a group. <dl class="docutils">
+<dt><strong>Return</strong></dt>
+<dd>true if the field has been changed (at least one number filled into a cell), false otherwise </dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv2N6Sudoku17solveBacktrackingEv">
+<span id="Sudoku::solveBacktracking"></span><span class="target" id="classSudoku_1a9cc4915bcf7e164a40abe1c18acdecf0"></span>bool <code class="descname">solveBacktracking</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N6Sudoku17solveBacktrackingEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>This function solves the sudoku recursively by using the backtracking algorithm. <dl class="docutils">
+<dt><strong>Return</strong></dt>
+<dd>true if the sudoku is solved </dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv2NK6Sudoku16checkSolvabilityEv">
+<span id="Sudoku::checkSolvabilityC"></span><span class="target" id="classSudoku_1a7bcdb96b02b263e02abc20c93ca92338"></span>void <code class="descname">checkSolvability</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em><a class="headerlink" href="#_CPPv2NK6Sudoku16checkSolvabilityEv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>This function checks if the sudoku is solvable. If the sudoku is not solvable, the function will throw an exception. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv2N6Sudoku5solveE4Mode">
+<span id="Sudoku::solve__Mode"></span><span class="target" id="classSudoku_1a4e1231a1a87c3776727abec9b37684a8"></span>void <code class="descname">solve</code><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv24Mode" title="Mode">Mode</a> <em>algorithm</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N6Sudoku5solveE4Mode" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>This function solves the sudoku with the given algorithms. <dl class="docutils">
+<dt><strong>Return</strong></dt>
+<dd>true if sudoku is solved </dd>
+<dt><strong>Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal"><span class="pre">algorithm</span></code>: way to solve the sudoku </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Private Functions</p>
+<dl class="function">
+<dt id="_CPPv2N6Sudoku7isEmptyE8Position">
+<span id="Sudoku::isEmpty__Position"></span><span class="target" id="classSudoku_1a3b494f000bab5731e5361c34049ff457"></span>bool <code class="descname">isEmpty</code><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv28Position" title="Position">Position</a> <em>pos</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N6Sudoku7isEmptyE8Position" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Returns if a given cell is not filled with a number. <dl class="docutils">
+<dt><strong>Return</strong></dt>
+<dd>true if the cell is empty, false otherwise </dd>
+<dt><strong>Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal"><span class="pre">pos</span></code>: the position to check </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv2N6Sudoku12insertNumberE8Positioni">
+<span id="Sudoku::insertNumber__Position.i"></span><span class="target" id="classSudoku_1a7fa55ee2b0922455e0a947fa214ada6b"></span>void <code class="descname">insertNumber</code><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv28Position" title="Position">Position</a> <em>pos</em>, int <em>num</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N6Sudoku12insertNumberE8Positioni" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Writes a number into the <a class="reference internal" href="#classSudoku"><span class="std std-ref">Sudoku</span></a> field at a given position. No checks of the number are performed. <dl class="docutils">
+<dt><strong>Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal"><span class="pre">pos</span></code>: where to insert the number </li>
+<li><code class="docutils literal"><span class="pre">num</span></code>: the number to insert </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv2N6Sudoku16getNextEmptyCellER8Position">
+<span id="Sudoku::getNextEmptyCell__PositionR"></span><span class="target" id="classSudoku_1a882a156490fe61fd98ddbe29d2434d56"></span>bool <code class="descname">getNextEmptyCell</code><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv28Position" title="Position">Position</a> &amp;<em>pos</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2N6Sudoku16getNextEmptyCellER8Position" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Returns if the sudoku has one or more empty cell to fill. <dl class="docutils">
+<dt><strong>Return</strong></dt>
+<dd>true if at least one cell is empty </dd>
+<dt><strong>Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal"><span class="pre">pos</span></code>: reference to the position of the next empty cell </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Private Members</p>
+<dl class="member">
+<dt id="_CPPv2N6Sudoku5fieldE">
+<span id="Sudoku::field__std::array:std::array:i.9:.9:"></span><span class="target" id="classSudoku_1adcfa650038a194949b4266e5a67b2d25"></span>std::array&lt;std::array&lt;int, 9&gt;, 9&gt; <code class="descname">field</code><a class="headerlink" href="#_CPPv2N6Sudoku5fieldE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="member">
+<dt id="_CPPv2N6Sudoku7metricsE">
+<span id="Sudoku::metrics__Metrics"></span><span class="target" id="classSudoku_1ae03db0733bf9db745065ef8326bc8fd1"></span><a class="reference internal" href="#_CPPv27Metrics" title="Metrics">Metrics</a> <code class="descname">metrics</code><a class="headerlink" href="#_CPPv2N6Sudoku7metricsE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric">Friends</p>
+<dl class="function">
+<dt id="_CPPv2lsRNSt7ostreamER6Sudoku">
+<span id="lshift-operator__osR.SudokuR"></span><span class="target" id="classSudoku_1a1865d039d6696362e62b4707f44afcf9"></span>std::ostream &amp;<code class="descname">operator&lt;&lt;</code><span class="sig-paren">(</span>std::ostream &amp;<em>stream</em>, <a class="reference internal" href="#_CPPv26Sudoku" title="Sudoku">Sudoku</a> &amp;<em>sudoku</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2lsRNSt7ostreamER6Sudoku" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>This function can be used to print out the current state of the <a class="reference internal" href="#classSudoku"><span class="std std-ref">Sudoku</span></a>. Cells that are already filled with a number are printed as the number, empty cells show up as zero. </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv2eqRK6SudokuRK6Sudoku">
+<span id="eq-operator__SudokuCR.SudokuCR"></span><span class="target" id="classSudoku_1ab91d85fc02e8cb75dafa26c498f56751"></span>bool <code class="descname">operator==</code><span class="sig-paren">(</span><em class="property">const</em> <a class="reference internal" href="#_CPPv26Sudoku" title="Sudoku">Sudoku</a> &amp;<em>lhs</em>, <em class="property">const</em> <a class="reference internal" href="#_CPPv26Sudoku" title="Sudoku">Sudoku</a> &amp;<em>rhs</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv2eqRK6SudokuRK6Sudoku" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>This function can be used to compare two sudoku fields. <dl class="docutils">
+<dt><strong>Return</strong></dt>
+<dd>true if the every cell is equal to the same cell in the other sudoku </dd>
+<dt><strong>Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal"><span class="pre">lhs</span></code>: the sudoku to compare with the other sudoku </li>
+<li><code class="docutils literal"><span class="pre">rhs</span></code>: other sudoku to compare with the sudoku </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+    <div class="footer">
+      &copy;2018, mamatofe.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.7</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="_sources/documentation.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

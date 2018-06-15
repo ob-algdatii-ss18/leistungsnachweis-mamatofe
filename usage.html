@@ -1,0 +1,120 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Usage &#8212; Sudoku-Solver 0.0.1 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Documentation" href="documentation.html" />
+    <link rel="prev" title="Build information" href="build.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">Sudoku-Solver</a></h1>
+
+
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=ob-algdatii-ss18&repo=leistungsnachweis-mamatofe&type=watch&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="build.html">Build information</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="documentation.html">Documentation</a></li>
+</ul>
+
+
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="usage">
+<span id="id1"></span><h1>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h1>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">sudoku</span><span class="o">-</span><span class="n">solver</span> <span class="p">{</span><span class="n">OPTIONS</span><span class="p">}</span> <span class="p">[</span><span class="n">file</span><span class="p">]</span>
+
+  <span class="n">Solves</span> <span class="n">the</span> <span class="n">classical</span> <span class="n">Sudoku</span> <span class="n">game</span><span class="o">.</span>
+
+<span class="n">OPTIONS</span><span class="p">:</span>
+
+    <span class="o">-</span><span class="n">h</span><span class="p">,</span> <span class="o">--</span><span class="n">help</span>                        <span class="n">Display</span> <span class="n">this</span> <span class="n">help</span>
+    <span class="o">-</span><span class="n">a</span><span class="p">[</span><span class="n">algorithm</span><span class="p">],</span> <span class="o">--</span><span class="n">algo</span> <span class="p">[</span><span class="n">algorithm</span><span class="p">]</span> <span class="n">The</span> <span class="n">algorithm</span> <span class="n">that</span> <span class="n">should</span> <span class="n">be</span> <span class="n">used</span> <span class="n">to</span>
+                                      <span class="n">solve</span> <span class="n">the</span> <span class="n">Sudoku</span><span class="o">.</span> <span class="n">Possible</span> <span class="n">values</span> <span class="n">are</span><span class="p">:</span>
+                                      <span class="n">default</span><span class="p">,</span> <span class="n">naked</span><span class="p">,</span> <span class="n">hidden</span><span class="p">,</span> <span class="n">backtracking</span><span class="p">,</span>
+                                      <span class="n">lrb</span> <span class="p">(</span><span class="n">last_resort_backtracking</span><span class="p">)</span>
+    <span class="n">file</span>                              <span class="n">The</span> <span class="n">file</span> <span class="n">containing</span> <span class="n">the</span> <span class="n">Sudoku</span> <span class="n">to</span> <span class="n">solve</span>
+</pre></div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+    <div class="footer">
+      &copy;2018, mamatofe.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.7</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="_sources/usage.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
