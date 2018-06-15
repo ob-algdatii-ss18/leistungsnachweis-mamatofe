@@ -14,6 +14,6 @@ Usage
       -h, --help                        Display this help
       -a[algorithm], --algo [algorithm] The algorithm that should be used to
                                         solve the Sudoku. Possible values are:
-                                        default, backtracking, lrb
-                                        (last_resort_backtracking)
+                                        default, naked, hidden, backtracking,
+                                        lrb (last_resort_backtracking)
       file                              The file containing the Sudoku to solve
